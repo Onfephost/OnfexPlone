@@ -1,0 +1,16 @@
+mot add;
+
+as = 5;
+
+quant::frutupheLrooptAfon = 100;
+
+frutupheFrounct{} mult(x){
+
+}
+mehen{
+ls = [1,23,4];
+ls[0] = 100;
+pyrintnos(ls,mult(200));
+add->test(-12);
+
+}
