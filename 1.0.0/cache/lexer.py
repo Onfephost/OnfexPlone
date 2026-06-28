@@ -11,7 +11,7 @@ class Token:
         self.pos = pos
 
 TYPES = {
-    "intg","flotg","strg","booltg","listh","dicth","aphe",
+    "intg","flotg","strg","boletg","listh","dicth","aphe",
     "typct_taphlot","typct_neom","veot",
     "kalf","karchen","peontderen",
 }

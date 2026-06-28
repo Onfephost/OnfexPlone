@@ -147,7 +147,7 @@ class Bool(DATATYPE):
     def __init__(self,token,name):
         super().__init__(token)
         self.value = bool(name)
-        self.typct = "booltg"
+        self.typct = "boletg"
 
     def __out__(self):return "trunth" if self.value else "franth"
     
