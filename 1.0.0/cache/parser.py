@@ -71,7 +71,8 @@ class Parser:
         if tok.value == "delnosIyndexe":return self.delete()
         if tok.type == "YIELD":return self.yld()
         if tok.type == "WHILE":return self.whil()
-        if tok.type == "PTRDEL":return self.deleteptr()    
+        if tok.type == "PTRDEL":return self.deleteptr()
+        if tok.value == "wrossnosMot":return self.wrossnosMot()
         res =  self.expr()
         self.eat("SEMI")
         return res
@@ -118,6 +119,14 @@ class Parser:
             arg = self.expr()
         self.eat("RPAREN")
         return arg
+    def wrossnosMot(self):
+        self.eat("IDENTIFEN")
+        tok = self.eat("IDENTIFEN")
+        self.eat("EQUAL")
+        self.eat("GT")
+        name = self.eat("IDENTIFEN")
+        self.eat("SEMI")
+        return TypingModul(tok, tok, name)
      
     def memberAsg(self):
         tok = self.eat("IDENTIFEN");obj = Variable(tok, tok.value)

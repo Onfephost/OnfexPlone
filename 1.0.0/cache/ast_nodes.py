@@ -523,3 +523,9 @@ class FutureCall(ASTNode):
         super().__init__(token)
         self.name = name
         self.args = value
+
+class TypingModul(ASTNode):
+    def __init__(self, token, name, value):
+        super().__init__(token)
+        self.name = name
+        self.value = value

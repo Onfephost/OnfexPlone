@@ -34,3 +34,22 @@ mot onfexFile;
   ```onfex
   onfexFile->var
   ```
+  - Mod Variable Assign
+  ```onfex
+  onfexFile->var = new;
+  ```
+  - Mod Function Call
+  ```onfex
+  onfexFile->func(args);
+  ```
+  - Mod Rename
+  ```onfex
+  mot a;
+  wrossnosMot a => new;
+- Args / Statements Writing
+```Onfex
+mehen{
+  func1(func2());# We have to put semi to end of every firstly parses #
+}
+```
+

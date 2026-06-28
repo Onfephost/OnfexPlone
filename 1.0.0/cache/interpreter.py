@@ -21,21 +21,21 @@ def check(l,*args):
     return rs
                     
 
-def wrap(node,x,y=None):
+def wrap(node,x,y=None,typ=None):
     if y is not None:x = (y.ty)(x)
-    if isinstance(x,int):
+    if isinstance(x,int) or typ is int :
         return Int(node,x)
-    elif isinstance(x,float):
+    elif isinstance(x,float) or typ is float:
         return Float(node,x)
-    elif isinstance(x,str):
+    elif isinstance(x,str) or typ is str:
         return String(node,x)
-    elif isinstance(x,bool):
+    elif isinstance(x,bool) or typ is bool:
         return Bool(node,x)
-    elif isinstance(x,dict):
+    elif isinstance(x,dict) or typ is dict:
         return DictLiteral(node,{wrap(node,a):wrap(node,b) for a,b in zip(x.keys(),x.values())})
-    elif isinstance(x,list):
+    elif isinstance(x,list) or typ is list:
         return ListLiteral(node,[wrap(node,i) for i in x])
-    elif isinstance(x,(DATATYPE,ObjectInstance,DEFINE)):
+    elif isinstance(x,(DATATYPE,ObjectInstance,DEFINE)) and typ is None:
         return x
     elif x is None:
         return Null(node)
@@ -284,8 +284,11 @@ class Interpreter:
         if hasattr(val, "__out__"):
             res = val.__out__()
             if isinstance(res,list):
-                res = [self.outOf(self.outOf(a)) for a in res]
-            if isinstance(res,dict):res = {self.outOf(self.outOf(a)):self.outOf(self.outOf(b)) for a,b in zip(res.keys(),res.values())}
+                res = [str(self.outOf(a)) for a in res]
+                res = "[" + ", ".join(res) + "]"
+            if isinstance(res,dict):
+                res = {str(self.outOf(a)):str(self.outOf(b)) for a,b in zip(res.keys(),res.values())}
+                res = "{" + ", ".join([f"{k}: {v}" for k,v in res.items()]) + "}"
             return res
         return val
     
@@ -393,6 +396,11 @@ class Interpreter:
             left = self.unwrap(self.eval(node.left))
             right = self.unwrap(self.eval(node.right))
             res = None
+            if node.op in ["PLUS","MINUS","STAR","SLASH","UP","MOD"]:
+                if (isinstance(left,str) and isinstance(right,(int,float))) or (isinstance(right,str) and isinstance(left,(int,float))):
+                    raiseE(node,"BinOper Ern",
+                    f"intg/flotg broph intg/flotg oph strg brof strg asp mut bephnosfer {type(left),left}:{type(right),right}")
+
             if node.op == "PLUS":
                 if (isinstance(right,str) and isinstance(left,(float,int))) or (isinstance(left,str) and isinstance(right,(float,int))):
                     raiseE(node,"BinOper Ern",
@@ -404,22 +412,27 @@ class Interpreter:
             if node.op == "SLASH":
                 if left == right == 0:raiseE(node,"Kleün Ernev Kleün Ern","0 asp brof 0 neat atfein ernosfer")
                 res= left / right
-            if node.op == "GT": res=(left > right)
-            if node.op == "LT": res = (left < right)
-            if node.op == "EQGT": res=(left >= right)
+            if node.op == "GT": res=bool(left > right)
+            if node.op == "LT": res = bool(left < right)
+            if node.op == "EQGT": res=bool(left >= right)
             if node.op == "EQLT": res= bool(left <= right)
-            if node.op == "EQEQ": res=(left == right)
-            if node.op == "AND": res= (left and right)
-            if node.op == "OR":res = (left or right)
-            if node.op == "IS":res=(left is right)
+            if node.op == "EQEQ": res=bool(left == right)
+            if node.op == "AND": res= bool(left and right)
+            if node.op == "OR":res = bool(left or right)
+            if node.op == "IS":res=bool(left is right)
             if node.op == "IN":
                 if (isinstance(left,str) and isinstance(right,(int,float))) or (isinstance(right,str) and isinstance(left,(int,float))):
                     raiseE(node,"Intf Opernal Ern","intf asp gerl strg brof neom neat atfein keöpervognosfer")
                 res = (bool(left in right))
             if node.op == "MOD":res= left % right
+            st = None
+            if node.op in ["PLUS","MINUS","STAR","SLASH","UP","MOD"]:
+                st = None
+            elif node.op in ["GT","LT","EQGT","EQLT","EQEQ","AND","OR","IS","IN"] and res is not None:
+                return Bool(node,res)
             if res is not None:
-                return wrap(node,res)
-            raiseE(node,"BinOper Ern",f"{node.op} asp frunth opernal")
+                return wrap(node,res,typ=st)
+            raiseE(node,"BinOper Ern",f"{node.op} asp franth opernal")
         
         if isinstance(node,UnaryOp):
             res = self.unwrap(self.eval(node.operand))
@@ -498,7 +511,16 @@ class Interpreter:
             the = node.As.value
             self.moduls[the.split("/")[-1]] = mod 
             return None
-            
+        
+        if isinstance(node,TypingModul):
+            name = node.name.value
+            rename = node.value.value
+            if name not in self.moduls:
+                raiseE(node.name,"Mot Ern",f"Exu mot ({name}) asp neat aife")
+            self.moduls[rename] = self.moduls[name]
+            del self.moduls[name]
+            return None
+
         if isinstance(node, ModulVariable):
             env = self.moduls.get(node.modul)
             if env is None:

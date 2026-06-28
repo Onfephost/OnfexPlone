@@ -48,7 +48,6 @@ class main:
     
     def __renew__(self):
         self.vars["verzen"] = "0.0.1"
-        print(self.vars["frutupheLrooptAfon"],type(self.vars["frutupheLrooptAfon"]))
         if not isinstance(self.vars["frutupheLrooptAfon"],int):
             self.vars["frutupheLrooptAfon"] = 100000000
         else:
