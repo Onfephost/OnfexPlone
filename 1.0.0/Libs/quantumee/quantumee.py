@@ -44,11 +44,12 @@ class main:
             "frutupheLrooptAfon":100000000000000,
         }
         self.metodes = {}
-        self.classes = {"qtrin":qtrin}
+        self.classes = {"qtriner":qtrin}
     
     def __renew__(self):
         self.vars["verzen"] = "0.0.1"
-        if self.vars["frutupheLrooptAfon"] is not int:
+        print(self.vars["frutupheLrooptAfon"],type(self.vars["frutupheLrooptAfon"]))
+        if not isinstance(self.vars["frutupheLrooptAfon"],int):
             self.vars["frutupheLrooptAfon"] = 100000000
         else:
             if self.vars["frutupheLrooptAfon"] >= 100000000:

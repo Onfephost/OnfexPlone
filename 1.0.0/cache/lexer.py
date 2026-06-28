@@ -26,7 +26,7 @@ KEYWORDS = {
 }
 
 
-unary = {"brof":"AND","neat":"NOT","oph":"OR","asp":"IS","mot":"MOD","intf":"IN"}
+unary = {"brof":"AND","neat":"NOT","ophe":"OR","asp":"IS","mot":"MOD","intf":"IN"}
 TOKEN_SPEC = [
     ("NUMBER",   r"-?\d+\.\d+|-?\d+"),("STRING",   r'"[^"]*"'),
     ("CHAR",     r"'[^']*'"),("BOOL",     r"(trunth|franth)"),("NULL",     r"(noph)"),

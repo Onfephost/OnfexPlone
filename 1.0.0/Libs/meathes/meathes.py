@@ -36,7 +36,7 @@ class main:
             "kosnev":self.fn_cos, "akosnev":self.fn_acos, "kosihnev":self.fn_cosh, "akosihnev":self.fn_acosh,
             "sintnev":self.fn_sin,"asintnev":self.fn_asin,"sinihnev":self.fn_sinh,"asinihnev":self.fn_asinh,
             "tantnev":self.fn_tan,"atantnev":self.fn_atan,"tanihnev":self.fn_tanh,"atanihnev":self.fn_atanh,
-            "pasEsalNeom":self.fn_asal,
+            "pasEsalNeom":self.fn_asal,"expe":self.fn_exp,
             "tünkernev":self.fn_tunc,
             "seaketnev":self.fn_ceil,
             "fotkatnev":self.fn_floor,
@@ -84,6 +84,9 @@ class main:
     def fn_asal(self,val):
         if multies(self.node,val) == 2:return True
         else:return False
+        
+    def fn_exp(self,val):
+        return math.exp(val)
 
     def mt_interpole(self,val,minimum,maximum):
         if val < minimum:return minimum

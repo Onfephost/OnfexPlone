@@ -346,7 +346,7 @@ class Interpreter:
                     raiseE(node,"Lib Error",f"Unnamed lib {node.lib}")
                 lib.node = target
                 varss = lib.vars
-                varss[target.name.value] = value
+                varss[target.name.value] = self.unwrap(value)
                 if hasattr(lib,"__renew__"):
                     lib.__renew__()
             return None

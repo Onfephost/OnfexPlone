@@ -87,14 +87,10 @@ class Parser:
         body = self.block()
         return KalfenNode(tok,i,name, body)
         
-    def main(self):
-        tok = self.eat("MEHEN")
-        val = self.enter1()
-        body = self.block()        
-        return Main(tok,body,val)
-        
     def ret(self):
-        TRK = self.eat("IDENTIFEN");args = self.enter1()
+        TRK = self.eat("IDENTIFEN");
+        self.eat("LT")
+        args = self.expr()
         self.eat("SEMI")
         return Return(TRK, args)
         
@@ -109,11 +105,12 @@ class Parser:
     def inters(self):
         args = []
         if self.current().type != "COMMA":
-            args.append(self.eat("IDENTIFEN").value)
+            args.append(self.expr())
             while self.current().type == "COMMA":
                 self.eat("COMMA")
-                args.append(self.eat("IDENTIFEN").value)
+                args.append(self.expr())
         return args
+    
         
     def enter1(self):
         self.eat("LPAREN");arg = None
