@@ -23,7 +23,7 @@ class OnfexPloneDoph:
                 tree = Parser(tokens).parse()
                 print("Onfex asp dowpownosyer...")
                 intr = intp.Interpreter()
-                #os.system("clear")
+                os.system("clear")
                 intr.path = self.path
                 intr.mainOn = True
                 print("[Onfex Run]")

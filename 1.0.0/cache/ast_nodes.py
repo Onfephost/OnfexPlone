@@ -229,7 +229,7 @@ class ZipIter:
             
     def __next__(self):
         if len(self.l) > self.cur:
-            val = self.l[cur]
+            val = self.l[self.cur]
             self.cur += 1
             return val
         else:

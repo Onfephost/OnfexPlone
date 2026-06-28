@@ -584,7 +584,7 @@ class Interpreter:
             if function:
                 nm = function
                 if hasattr(nm, "has_yield") and nm.has_yield:
-                    return nullptr(node,GeneratorObj(self, nm, args))
+                    return (node,GeneratorObj(self, nm, args))
                 if isinstance(nm,Func):
                     return wrap(node,self.eval_func(nm,None,args))
                 if isinstance(nm,FutureFunc):
@@ -646,7 +646,7 @@ class Interpreter:
         if isinstance(node, FutureCall):
             name = node.name
             func = self.env.get(node,name).valtue
-            args = [self.unwrap(self.eval(a)) for a in node.args]
+            argsl = [self.unwrap(self.eval(i)) for i in node.args]
             qc = self.libs["quant"].vars.get("frutupheLonevAfon",1000)
             llc = self.unwrap(self.eval(func.probs)).get("lonev",qc)
             if isinstance(func,FutureFunc):
@@ -655,7 +655,7 @@ class Interpreter:
                 while ll < llc:
                     ll += 1
                     try:
-                        tot = (self.eval_func(func,None,args))
+                        tot = (self.eval_func(func,None,args=argsl))
                         import cache.helps as helps
                         args = helps.makeList(self.unwrap(tot))
                     except BreakExcp:break
