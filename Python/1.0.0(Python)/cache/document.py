@@ -19,28 +19,6 @@ class OnfexPloneDoph:
         self.ii = isImport
         self.envPtrC = 1
         
-    def _run_cpp_bridge(self):
-        bridge_src = Path(__file__).with_name("onfex_ide_bridge.cpp")
-        bridge_bin = Path(__file__).with_name("onfex_ide_bridge")
-
-        if not bridge_bin.exists():
-            subprocess.run([
-                "g++", str(bridge_src), "-o", str(bridge_bin)
-            ], check=True, capture_output=True, text=True)
-
-        proc = subprocess.run(
-            [str(bridge_bin), self.path, self.name],
-            input=self.code,
-            capture_output=True,
-            text=True,
-            check=False,
-        )
-
-        if proc.stdout:
-            print(proc.stdout, end="")
-        if proc.stderr:
-            print(proc.stderr, end="", file=sys.stderr)
-        return proc.returncode
 
     def run(self,nm=None):
         self.main = nm

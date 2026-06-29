@@ -5,7 +5,8 @@ import cache.lexer as lex
 
 def rex(a,l1,l2):
     rs = a
-    for a,b in zip(l1,l2):rs = rs.replace(a,b)
+    for a,b in zip(l1,l2):
+        rs = rs.replace(a,b)
     return rs
     
 class Parser:
