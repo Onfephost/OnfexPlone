@@ -307,10 +307,11 @@ class Elif(ASTNode):
         self.body = body
 
 class Func(DEFINE):
-    def __init__(self,token,name,par,var=None,bo=None):
+    def __init__(self,token,name,par,var=None,bo=None,setpars=None):
         super().__init__(token)
         self.name = name
         self.params = par
+        self.setPars = setpars
         self.vararg = var
         self.body = bo
         self.has_yield = detect_yield(self.body)
@@ -364,13 +365,6 @@ class IndexAccess(ASTNode):
         super().__init__(token)
         self.target = target
         self.index = index
-        
-class IndexAssign(ASTNode):
-    def __init__(self, token, target, index, val):
-        super().__init__(token)
-        self.target = target 
-        self.index = index
-        self.value = val
         
 class IndexDelete(ASTNode):
     def __init__(self, token, obj,index):
@@ -498,13 +492,14 @@ class ModulImport(ASTNode):
         self.As = name
         
 class FutureFunc(DEFINE):
-    def __init__(self,token,props,name,par,bo=None):
+    def __init__(self,token,props,name,par,bo=None,setpars=None):
         super().__init__(token)
         self.probs = props
         self.name = name
         self.params = par
         self.vararg = None
         self.body = bo
+        self.setPars = setpars
         
     def __out__(self):return f"<{self.name}|frutupheFrounct|__mehen__>"
     

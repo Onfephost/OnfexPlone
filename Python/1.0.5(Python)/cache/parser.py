@@ -132,7 +132,7 @@ class Parser:
         tok = self.eat("IDENTIFEN");obj = Variable(tok, tok.value)
         self.eat("POINT");name = self.eat("IDENTIFEN").value
         self.eat("EQUAL");value = self.expr();self.eat("SEMI")
-        return MemberAssign(tok, obj, name, value)
+        return Assign(tok, obj, None, value)
         
     def forp(self):
         tok = self.eat("FOR");
@@ -189,38 +189,69 @@ class Parser:
     def func(self):
         tok = self.eat("FRCT");name = self.eat("IDENTIFEN").value
         self.eat("LPAREN");params = [];varagr = None
+        setparams ={}
+        sp = False
         if self.current().type != "RPAREN":
         # ilk param
             if self.current().type == "STAR":self.eat("STAR");varagr = self.eat("IDENTIFEN").value
-            else:params.append(self.eat("IDENTIFEN").value)
+            else:
+                 params.append(self.eat("IDENTIFEN").value)
+                 setparams = {params[-1]: None}
+                 if self.current().type == "EQUAL":
+                    sp = True
+                    self.eat("EQUAL")
+                    setparams[params[-1]] = self.expr()
         # devamı
             while self.current().type == "COMMA":
                 self.eat("COMMA")
                 if self.current().type == "STAR":
-                    self.eat("STAR");varagr = self.eat("IDENTIFEN").value;break
+                    self.eat("STAR");varagr = self.eat("IDENTIFEN").value
+                    break
                 params.append(self.eat("IDENTIFEN").value)
-        self.eat("RPAREN");body = self.block()
-        return Func(tok, name, params, varagr, body)
-        
+                setparams[params[-1]] = None
+                if self.current().type == "EQUAL":
+                    sp = True
+                    self.eat("EQUAL")
+                    setparams[params[-1]] = self.expr()
+                elif sp:
+                    raiseE(self.current(), "Syntax Error", "Positional argument follows keyword argument")
+        self.eat("RPAREN")
+        body = self.block()
+        return Func(tok, name, params, varagr, body, setparams)
+
     def pfunc(self):
         tok = self.eat("PFRCT")        
         probs = self.dict_literal()
         name = self.eat("IDENTIFEN").value
         self.eat("LPAREN")
         params = []
+        setparams = {}
+        sp = False
         if self.current().type != "RPAREN":
         # ilk param
             params.append(self.eat("IDENTIFEN").value)
+            setparams = {params[-1]: None}
+            if self.current().type == "EQUAL":
+                sp = True
+                self.eat("EQUAL")
+                setparams = {params[-1]: self.expr()}
         # devamı
             while self.current().type == "COMMA":
                 self.eat("COMMA")
                 if self.current().type == "STAR":
                     self.eat("STAR");varagr = self.eat("IDENTIFEN").value;break
                 params.append(self.eat("IDENTIFEN").value)
+                setparams[params[-1]] = None
+                if self.current().type == "EQUAL":
+                    sp = True
+                    self.eat("EQUAL")
+                    setparams[params[-1]] = self.expr()
+                elif sp:
+                    raiseE(self.current(), "Syntax Error", "Positional argument follows keyword argument")
         self.eat("RPAREN")
         
         body = self.block()
-        return FutureFunc(tok,probs, name, params,body)
+        return FutureFunc(tok,probs, name, params,body,setparams)
         
     
     # ---------------- delete ----------------
@@ -270,7 +301,7 @@ class Parser:
                 tok = self.eat("EQUAL");value = self.expr()
                 if isinstance(left, MemberAssign):
                     left.value = value
-                    return left
+                    return Assign(left.tok, left.left, None, value)
                 if isinstance(left, DataAttr):
                     return Assign(left.tok, left, None, value)
                 if isinstance(left, IndexAccess):

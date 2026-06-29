@@ -310,7 +310,7 @@ class Interpreter:
             for stmt in node.statements:
                 self.eval(stmt)
             return None
-        # 
+        # ---------------- MAIN ----------------
         if isinstance(node, Mehen) and self.mainOn:
             return self.eval(node.statements)
         if isinstance(node, Mehen) and not self.mainOn:
@@ -322,12 +322,10 @@ class Interpreter:
         if isinstance(node, FutureFunc):
             self.env.set(node,node.name,None,node)
             return None
-        #Delete Func  
         # ---------------- CLASS DEFINE ----------------
         if isinstance(node, KalfenNode):
             self.env.set(node,node.name,None,node)
             return None
-        #Delete Class
         # ---------------- ASSIGN ----------------
         if isinstance(node, Assign):
             target = node.var
@@ -362,19 +360,6 @@ class Interpreter:
                 else:
                     raiseE(node,"Runtime Error","Cannot assign to this object")
             return None
-        # ---------------- MEMBER ASSIGN ----------------
-        if isinstance(node, MemberAssign):
-            print("wont work")
-            obj = self.eval(node.obj)
-            value = self.eval(node.value)
-            if isinstance(obj, ObjectInstance):
-                obj.set_attr(node.name, value)
-            elif isinstance(obj, dict):
-                obj[node.name] = value
-            elif isinstance(obj,Environment):
-                obj.set(node,node.name,None,value)
-            else:raiseE(node,"Runtime Error","Cannot assign to this object")
-            return None
         # ---------------- VARIABLE ----------------
         if isinstance(node, Variable):
             return self.ptrOut(self.env.get(node,node.name))
@@ -406,6 +391,8 @@ class Interpreter:
             left = self.unwrap(self.eval(node.left))
             right = self.unwrap(self.eval(node.right))
             res = None
+            if left is None or right is None:
+                raiseE(node,"BinOper Ern",f"None asp broph opernal")
             if node.op in ["PLUS","MINUS","STAR","SLASH","UP","MOD"]:
                 if (isinstance(left,str) and isinstance(right,(int,float))) or (isinstance(right,str) and isinstance(left,(int,float))):
                     raiseE(node,"BinOper Ern",
@@ -693,24 +680,36 @@ class Interpreter:
                     except BreakExcp:break
                 return wrap(node,tot)
             return type(func) 
-
-        raiseE(node,"Runtime Error",f"Undefined call {node}")
+        if node is not None:
+            raiseE(node,"Runtime Error",f"Undefined call {node}")
+        else:
+            return None
 
     # Evaluate a function body
     def eval_func(self, func_node, instance, args):
         old_env = self.env;self.env = Environment(old_env)
         # Normal parametreler
         normal_count = len(func_node.params)
-        if func_node.vararg is None:
-            if len(args) != normal_count:
-                raiseE(func_node, "Promter Ern",
+        if func_node.vararg is  None:
+            if len(args) != normal_count and not any([a is not None for a in func_node.setPars.values()]):
+                raiseE(func_node, "a Promter Ern",
                    f"{func_node.name} asp {normal_count} afon promter gephnosfer apht {len(args)} afon gephnosan")
+        elif any([a is not None for a in func_node.setPars.values()]):
+            pass
         else:
             if len(args) < normal_count:
+                pass
                 raiseE(func_node, "Promter Ern",
                    f"{func_node.name} asp banev frasta serl {normal_count} afon promter gephnosfer apht {len(args)} afon gephnosan")
+        setparams = func_node.setPars
+        setparams = {k: self.eval(v) for k,v in setparams.items()}
+        for l,w in zip(setparams.keys(),args):
+            setparams[l] = w
+        if not any([a is None for a in func_node.setPars.values()]):
+            raiseE(func_node, "the Promter Ern", f"{func_node.name} asp banev frasta serl afon promter gephnosfer apht afon gephnosan")
         # normal parametreleri ata
-        for i in range(normal_count):self.env.set(func_node, func_node.params[i], None, args[i])
+        for p,v in setparams.items():
+            self.env.set(func_node, p, None, v)
         # *varargs parametresi
         if func_node.vararg:
             rest = args[normal_count:]
