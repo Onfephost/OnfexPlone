@@ -316,10 +316,10 @@ class Parser:
             if self.current() and self.current().type == "LPAREN":
                 args = self.enters()
                 if self.current().type == "LBRACE":
-                    bb = self.block()
-                    node = Thread(tok,name,args,bb)
+                    bb = self.dict_literal()
+                    node = Call(tok, node, args, bb)
                 else:
-                    node = Call(tok, node, args)
+                    node = Call(tok, node, args,None)
             
             # Lib call öncelikli kontrol
             if self.current() and self.current().type == "COLON" and self.peek() and self.peek().type == "COLON":
@@ -337,7 +337,8 @@ class Parser:
                 else:
                     node = ModulVariable(tok, name, func_name)
                     args = self.enters()
-                    return Call(tok, node, args)
+                    return Call(tok, node, args,None)
+ 
             return self.chain(node)
         if tok.type == "LBRACKET":return self.list_literal()
         if tok.type == "LBRACE":return self.dict_literal()

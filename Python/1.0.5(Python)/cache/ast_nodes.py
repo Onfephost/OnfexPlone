@@ -265,10 +265,11 @@ class Assign(ASTNode):
         self.value = val
 
 class Call(ASTNode):
-    def __init__(self, token, name, value):
+    def __init__(self, token, name, value,p):
         super().__init__(token)
         self.node = name
         self.args = value
+        self.probs = p
         
 class LibCall(ASTNode):
     def __init__(self, token, lib,name, value):

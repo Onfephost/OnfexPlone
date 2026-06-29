@@ -268,6 +268,7 @@ class Interpreter:
         self.libs = {}
         self.libs["quant"] = la.loadLib(None,"quant")
         self.libs["reop"] = la.loadLib(None,"estorge")
+        self.libs["onfextrode"] = la.loadLib(None,"onfextrode")
         self.moduls = {}
         #Extra     
     # Evaluate Node
@@ -679,7 +680,7 @@ class Interpreter:
                     try:
                         tot = (self.eval_func(func,None,args=argsl))
                         import cache.helps as helps
-                        args = helps.makeList(self.unwrap(tot))
+                        argsl = helps.makeList(self.unwrap(tot))
                     except BreakExcp:break
                 return wrap(node,tot)
             return type(func) 
@@ -719,7 +720,15 @@ class Interpreter:
     # BUILTIN FUNCTIONS
     # =========================
     def fn_print(self,node,*args):
-        final_args = [];e = "\n";sp = " "        
+        final_args = [];e = "\n";sp = " " 
+        e = self.libs["onfextrode"].vars.get("fowLt",e)
+        sp = self.libs["onfextrode"].vars.get("seph",sp)
+        ps=node.probs
+        if ps:
+            psr = self.unwrap(self.eval(ps))
+            if isinstance(psr,dict):
+                e = psr.get("fowLt",e)
+                sp = psr.get("seph",sp)  
         for a in args:
             old = a
             if isinstance(a, Spread):final_args.extend(a.values)

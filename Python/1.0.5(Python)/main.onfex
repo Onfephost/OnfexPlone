@@ -2,21 +2,19 @@ mot add;
 wrossnosMot add => module;
 as = 5;
 
-
-
 frutupheFrounct{} mult(x,b){
     ifnt(b){
         brontnos
     }
-        pyrintnos(x);
-        r = x / 4;
-        b = (r<1) brof (r > -1);
-        retrunos<[r,b];
+    r = x / 4;
+    b = (r<1) brof (r > -1);
+    retrunos<[r,b];
     
 }
 mehen{
+    quant::radoeRoderAfon = 50;
     ls = [1,23,4];
     ls[0] = 100;
-    pyrintnos(ls,mult(100,franth),quant::frutupheLrooptAfon);
+    pyrintnos(ls,mult(10,franth), quant::radoeRoderAfon){"seph":"   "};
     module->test(-13);
 }

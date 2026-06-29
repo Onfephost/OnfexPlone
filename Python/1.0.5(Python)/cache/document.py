@@ -47,7 +47,6 @@ class OnfexPloneDoph:
         try:
             self._run_cpp_bridge()
         except Exception as exc:
-            print(f"[Onfex C++ bridge fallback] {exc}", file=sys.stderr)
             try:
                 import cache.interpreter as intp
 

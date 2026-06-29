@@ -7,13 +7,15 @@ class main:
         self.node = node
         self.funcs = {}
         self.vars = {
-            "verzen":"0.0.0",
+            "verzen":"0.0.1",
+            "fowLt":"\n",
+            
         }
         self.metodes = {}
         self.classes = {}
     
     def __renew__(self):
-        self.vars["verzen"] = "0.0.0"
+        self.vars["verzen"] = "0.0.1"
             
 if __name__ == "__main__":
     pass

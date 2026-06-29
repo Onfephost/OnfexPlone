@@ -2,7 +2,8 @@ import sys
 from cache.Exceptions import *
 
 def loadLib(node,lib):
-    if lib in ["neomOnfex","tymess","taphlot","osp","karchenter","meathess","rundom","estorge","quant"]:
+    if lib in ["neomOnfex","tymess","taphlot","osp","karchenter",
+               "meathess","rundom","estorge","quant","onfextrode"]:
         match lib:
             case "neomOnfex":              
                 import Libs.neomOnfex.neomOnfex as lib
@@ -38,6 +39,10 @@ def loadLib(node,lib):
                 
             case "quant":
                 from Libs.quantumee.quantumee import main
+                return main(node)
+            
+            case "onfextrode":
+                from Libs.onfextrode.onfextrode import main
                 return main(node)
             
     else:raiseE(node,"Lyirb Ern",f"{lib} asp neat inferdosnosyer")

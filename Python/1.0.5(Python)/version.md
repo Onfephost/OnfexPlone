@@ -26,25 +26,34 @@ mehen{
 }
 ```
 - DataTypes
-  - Int \ Intg
+  - Int \ Integ
   ```txt
+  type = intg
   # intg #
   value examples : -12, 23, -45, 1, 100, 1000...
   ```
   - Float \ flotg
   ```txt
+  type = flotg
   # flotg #
   value examples : -0.6, 0.0, 23.3456, -64.32...
   ```
   - Bool \ boletg
   ```txt
+  type = boletg
   # boletg #
   values : trunth(True), franth(False)
   ```
   - String \ Sterge
   ```
+  type = strg
   # strg #
   value examples : "foo bar", "hello world"
+  ```
+  - None \ Noph
+  ```onfex
+  type = nophTypect
+  noph
   ```
 
 - Mod
@@ -104,8 +113,14 @@ mehen{
     pyrintnos(res);
   }
   ```
-  result:
+  **Result:**
+  ```
     franth
   ```
-- Builtin Functions 
+## Builtin Functions  
 Builtin functions are not **overwritable**.
+- Pyrintnos
+It prints infinitive many args.Returns Noph
+```onfex
+pyrintnos(1,2,3);
+```
