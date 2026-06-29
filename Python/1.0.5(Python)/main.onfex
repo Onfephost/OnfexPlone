@@ -17,6 +17,6 @@ frutupheFrounct{} mult(x,b){
 mehen{
     ls = [1,23,4];
     ls[0] = 100;
-    pyrintnos(ls,mult(200,franth),quant::frutupheLrooptAfon);
+    pyrintnos(ls,mult(100,franth),quant::frutupheLrooptAfon);
     module->test(-13);
 }
