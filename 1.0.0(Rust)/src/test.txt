@@ -1,9 +1,0 @@
-urso neomOnfex asken no;
-
-mehen(){
-
-valt ert = 10;
-valt a = &ert;
-pyrintnos(ert,a,*a);
-
-}
