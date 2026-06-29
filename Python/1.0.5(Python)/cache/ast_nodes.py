@@ -422,13 +422,6 @@ class DataAttr(ASTNode):
         self.obj = par1
         self.atr = par2
         
-class CallAttr(ASTNode):
-    def __init__(self, token,par1,par2,par3):
-        super().__init__(token)
-        self.obj = par1
-        self.atr = par2
-        self.args = par3
-
 class ParamAssign(ASTNode):
     def __init__(self, token,par1,par2):
         super().__init__(token)

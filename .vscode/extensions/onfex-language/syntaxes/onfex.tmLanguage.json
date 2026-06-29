@@ -1,0 +1,88 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Onfex",
+  "scopeName": "source.onfex",
+  "patterns": [
+    { "include": "#comments" },
+    { "include": "#strings" },
+    { "include": "#characters" },
+    { "include": "#keywords" },
+    { "include": "#literals" },
+    { "include": "#numbers" },
+    { "include": "#functions" }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.double-slash.onfex",
+          "match": "//.*$"
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.onfex",
+          "begin": "\"",
+          "end": "\"",
+          "patterns": [
+            { "name": "constant.character.escape.onfex", "match": "\\\\." }
+          ]
+        }
+      ]
+    },
+    "characters": {
+      "patterns": [
+        {
+          "name": "string.quoted.single.onfex",
+          "begin": "'",
+          "end": "'",
+          "patterns": [
+            { "name": "constant.character.escape.onfex", "match": "\\\\." }
+          ]
+        }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.onfex",
+          "match": "\\b(?:kalfen|frounct|frutupheFrounct|frutuphenos|ifnt|elsnt|efnt|peontDelnos|forp|perl|eower|keryenos|maphnos|asken|serl|kalfenCernos|oed|mot|brof|neat|ophe|asp|intf|mehen|module|quant|as|mult|retrunos|brontnos|rondnos|trunth|franth|noph)\\b"
+        },
+        {
+          "name": "storage.type.onfex",
+          "match": "\\b(?:Human|Frounct|Class|Struct)\\b"
+        }
+      ]
+    },
+    "literals": {
+      "patterns": [
+        {
+          "name": "constant.language.boolean.onfex",
+          "match": "\\b(?:trunth|franth)\\b"
+        },
+        {
+          "name": "constant.language.null.onfex",
+          "match": "\\bnoph\\b"
+        }
+      ]
+    },
+    "numbers": {
+      "patterns": [
+        {
+          "name": "constant.numeric.onfex",
+          "match": "\\b-?\\d+(?:\\.\\d+)?\\b"
+        }
+      ]
+    },
+    "functions": {
+      "patterns": [
+        {
+          "name": "entity.name.function.onfex",
+          "match": "\\b[A-Za-z_][A-Za-z0-9_öüİÖÜ]*\\s*(?=\\()"
+        }
+      ]
+    }
+  }
+}

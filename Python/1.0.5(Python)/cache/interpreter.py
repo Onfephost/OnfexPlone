@@ -353,9 +353,18 @@ class Interpreter:
                 varss[target.name.value] = self.unwrap(value)
                 if hasattr(lib,"__renew__"):
                     lib.__renew__()
+            elif isinstance(target,MemberAccess):
+                obj = self.eval(target.obj)
+                if isinstance(obj, ObjectInstance):
+                    obj.set_attr(target.atr.value, value)
+                elif isinstance(obj, dict):
+                    obj[target.atr.value] = value
+                else:
+                    raiseE(node,"Runtime Error","Cannot assign to this object")
             return None
         # ---------------- MEMBER ASSIGN ----------------
         if isinstance(node, MemberAssign):
+            print("wont work")
             obj = self.eval(node.obj)
             value = self.eval(node.value)
             if isinstance(obj, ObjectInstance):
@@ -732,9 +741,6 @@ class Interpreter:
         for a in args:
             old = a
             if isinstance(a, Spread):final_args.extend(a.values)
-            elif isinstance(a, ParamAssign):
-                if a.param == "fowLt": e = self.unwrap(self.eval(a.value))
-                if a.param == "seph": sp = self.unwrap(self.eval(a.value))
             elif isinstance(a,Peontderen):
                 final_args.append(self.outOf(self.ptrOut(a)))
             elif isinstance(a, ObjectInstance):
@@ -772,8 +778,10 @@ class Interpreter:
             deleted=True
         if not deleted:
             raiseE(node,"Lyirb Ern",f"{lib} asp neat inferins lyirb")
+            
     def fn_len(self,node,arg):
         return wrap(node,len(self.unwrap(arg)),Type(node,"intg"))
+    
     def fn_map(self, node,arg,m):
         import cache.helps as helps
         res = []
@@ -783,6 +791,7 @@ class Interpreter:
         for i in obj:
             res.append(self.eval_func(m,None,helps.makeList(i)))
         return wrap(node,res)
+    
     def fn_filt(self, node,arg,m):
         import cache.helps as helps
         res = []
@@ -794,8 +803,10 @@ class Interpreter:
             if self.unwrap(r) == True:
                 res.append(i)
         return wrap(node,res)
+    
     def fn_env(self,node,arg):
         return (getattr(self.env,self.unwrap(arg)))
+    
     def fn_open(self,node,arg,ty="rn"):
         if os.path.exists(arg):
             name = arg.split("/")[-1]

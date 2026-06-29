@@ -269,9 +269,10 @@ class Parser:
             if isinstance(left,(Variable, MemberAssign, DataAttr,IndexAccess,ModulVariable,LibVariable)):
                 tok = self.eat("EQUAL");value = self.expr()
                 if isinstance(left, MemberAssign):
-                    left.value = value;return left
+                    left.value = value
+                    return left
                 if isinstance(left, DataAttr):
-                    return MemberAssign(left.tok, left.obj, left.atr, value)
+                    return Assign(left.tok, left, None, value)
                 if isinstance(left, IndexAccess):
                     return Assign(left,left,None,value)
                 return Assign(tok, left, None, value)

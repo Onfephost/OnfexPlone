@@ -1,7 +1,12 @@
 mot add;
 wrossnosMot add => module;
 as = 5;
-
+kalfen Human{
+    frounct __mehen__(srel,a,b){
+        srel.name = a;
+        srel.age = b;
+    }
+}
 frutupheFrounct{} mult(x,b){
     ifnt(b){
         brontnos
