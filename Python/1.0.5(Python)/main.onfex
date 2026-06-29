@@ -27,6 +27,5 @@ mehen{
     ls[0] = 100;
     pyrintnos(ls, mult(5,franth),quant::radoeRoderAfon){"seph":"   "};
     module->test(-13);
-    malZeynep = Human("Zeynep", 20);
     pyrintnos(new(5), new(5, 15));
 }
