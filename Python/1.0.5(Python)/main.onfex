@@ -1,6 +1,7 @@
 mot add;
 wrossnosMot add => module;
-as = 5;
+
+ass = 5;
 
 kalfen Human{
     frounct __mehen__(srel,a,b){
