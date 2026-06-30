@@ -140,10 +140,12 @@ class Parser:
         return TypingLib(tok, tok, name)
 
     def memberAsg(self):
-        tok = self.eat("IDENTIFEN");obj = Variable(tok, tok.value)
-        self.eat("POINT");name = self.eat("IDENTIFEN").value
-        self.eat("EQUAL");value = self.expr();self.eat("SEMI")
-        return Assign(tok, obj, None, value)
+        print("memberAsg")
+        obj_tok = self.eat("IDENTIFEN"); obj = Variable(obj_tok, obj_tok.value)
+        ptok = self.eat("POINT"); name_tok = self.eat("IDENTIFEN")
+        self.eat("EQUAL"); value = self.expr(); self.eat("SEMI")
+        member = MemberAccess(ptok, obj, name_tok)
+        return Assign(obj_tok, member, None, value)
         
     def forp(self):
         tok = self.eat("FOR");
@@ -181,7 +183,6 @@ class Parser:
         if self.current().type== "SLASH":
             print(2)
             while self.current().type == "SLASH":
-                print(12345,1234)
                 self.eat("SLASH")
                 res = self.eat("IDENTIFEN").value
                 lib.value = lib.value +"/"+ res
@@ -308,13 +309,8 @@ class Parser:
         
         # assignment Variable, MemberAssign, DataAttr
         if self.current() and self.current().type == "EQUAL":
-            if isinstance(left,(Variable, MemberAssign, DataAttr,IndexAccess,ModulVariable,LibVariable)):
+            if isinstance(left,(Variable, MemberAccess, DataAttr,IndexAccess,ModulVariable,LibVariable)):
                 tok = self.eat("EQUAL");value = self.expr()
-                if isinstance(left, MemberAssign):
-                    left.value = value
-                    return Assign(left.tok, left.left, None, value)
-                if isinstance(left, DataAttr):
-                    return Assign(left.tok, left, None, value)
                 if isinstance(left, IndexAccess):
                     return Assign(left,left,None,value)
                 return Assign(tok, left, None, value)

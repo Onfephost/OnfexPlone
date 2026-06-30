@@ -221,11 +221,11 @@ class ObjectInstance(DATATYPE):
     # GET ATTR
     def get_attr(self, name, node=None):
         # instance vars
-        if name in self.env.vars:
-            return self.env.get(self, name)
+        if self.env.save_get(node, name):
+            return self.interpreter.ptrOut(self.env.get(self, name))
         # dict
         if name == "__dicth__":
-            ls = self.env.vars
+            ls = self.env.pointers.copy()
             if self.parent is not None:del ls[self.parent.name]
             return ls
         # class methods
@@ -754,10 +754,11 @@ class Interpreter:
             elif isinstance(a,Peontderen):
                 final_args.append(self.outOf(self.ptrOut(a)))
             elif isinstance(a, ObjectInstance):
+                print(122)
                 try:
                     a = self.eval(MethodCall(node, a, "__strg__",[]))
-                except:
-                    pass
+                except Exception as ex:
+                    print(f"Error occurred while evaluating __strg__: {ex}")
                 final_args.append(self.outOf(a))
             else:
                 final_args.append(self.outOf(self.outOf((a))))

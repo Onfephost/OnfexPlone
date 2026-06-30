@@ -60,5 +60,6 @@
     "*.onfex": "onfex"
   },
   "terminal.integrated.cwd": "${workspaceFolder}",
-  "extensions.autoCheckUpdates": false
+  "extensions.autoCheckUpdates": false,
+  "remote.autoForwardPortsFallback": 0
 }

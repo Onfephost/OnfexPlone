@@ -1,6 +1,6 @@
 mot add;
 wrossnosMot add => module;
-inkleodnos meathess asken ;
+inkleodnos meathess asken mt;
 as = 5;
 
 kalfen Human{
@@ -9,10 +9,10 @@ kalfen Human{
         srel.age = b;
     }
     frounct getName(srel){
-        retrunos srel.name;
+        retrunos<srel.name;
     }
     frounct getAge(srel){
-        retrunos srel.age;
+        retrunos<srel.age;
     }
     frounct setName(srel,a){
         srel.name = a;
@@ -20,8 +20,8 @@ kalfen Human{
     frounct setAge(srel,b){
         srel.age = b;
     }
-    frounct __str__(srel){
-        retrunos "Name: " + srel.name + ", Age: " + srel.age;
+    frounct __strg__(srel){
+        retrunos<"Name: " + srel.name + ", Age: " + typectChengnos(srel.age,strg);
     }
 }
 
@@ -32,7 +32,7 @@ frutupheFrounct{} mult(x,b){
     r = x / 4;
     b = (r<1) brof (r > -1);
     retrunos<[r,b];
-    
+
 }
 frounct new(a,b=10){
     retrunos<a + b;
@@ -44,4 +44,6 @@ mehen{
     pyrintnos(ls, mult(5,franth),quant::radoeRoderAfon){"seph":"   "};
     module->test(-13);
     pyrintnos(new(5), new(5, 15));
+    ali = Human("Alice", 30);
+    pyrintnos(ali);
 }
