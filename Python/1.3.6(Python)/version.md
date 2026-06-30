@@ -122,5 +122,5 @@ Builtin functions are not **overwritable**.
 - Pyrintnos
 It prints infinitive many args.Returns Noph
 ```onfex
-pyrintnos(1,2,3);
+pyrintnos(1,2,3){"seph":" ","fowLt":"\n"};
 ```
