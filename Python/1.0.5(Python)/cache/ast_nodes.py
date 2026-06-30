@@ -518,3 +518,9 @@ class TypingModul(ASTNode):
         super().__init__(token)
         self.name = name
         self.value = value
+        
+class TypingLib(ASTNode):
+    def __init__(self, token, name, value):
+        super().__init__(token)
+        self.name = name
+        self.value = value

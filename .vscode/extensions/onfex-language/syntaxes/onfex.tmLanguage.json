@@ -48,11 +48,11 @@
       "patterns": [
         {
           "name": "keyword.control.onfex",
-          "match": "\\b(?:kalfen|frounct|frutupheFrounct|frutuphenos|ifnt|elsnt|efnt|peontDelnos|forp|perl|eower|keryenos|maphnos|asken|serl|kalfenCernos|oed|mot|brof|neat|ophe|asp|intf|mehen|module|quant|as|mult|retrunos|brontnos|rondnos|trunth|franth|noph)\\b"
+          "match": "\\b(?:kalfen|frounct|inkleodnos|frutupheFrounct|frutuphenos|ifnt|elsnt|efnt|peontDelnos|forp|perl|eower|keryenos|maphnos|asken|serl|kalfenCernos|oed|mot|brof|neat|ophe|asp|intf|mehen|module|quant|as|mult|retrunos|brontnos|rondnos|trunth|franth|noph)\\b"
         },
         {
           "name": "storage.type.onfex",
-          "match": "\\b(?:Human|Frounct|Class|Struct)\\b"
+          "match": "\\b(?:Frounct|Struct)\\b"
         }
       ]
     },

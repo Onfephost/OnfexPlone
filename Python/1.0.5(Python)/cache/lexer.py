@@ -21,7 +21,7 @@ KEYWORDS = {
 "ifnt":"IF","elsnt":"ELSE","efnt":"ELIF",
 "peontDelnos":"PTRDEL","forp":"FOR","perl":"PERL","eower":"WHILE",
 "keryenos":"FORPPERL","maphnos":"MAPHPERL","asken":"AS",
-"serl":"SERL",
+"serl":"SERL","inkleodnos":"IMPORT",
 "kalfenCernos":"CLASSCRE","oed":"YIELD",
 }
 

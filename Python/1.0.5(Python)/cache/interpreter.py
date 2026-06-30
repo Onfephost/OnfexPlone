@@ -517,6 +517,15 @@ class Interpreter:
             self.moduls[rename] = self.moduls[name]
             del self.moduls[name]
             return None
+        
+        if isinstance(node, TypingLib):
+            name = node.name.value
+            rename = node.value.value
+            if name not in self.libs:
+                raiseE(node.name,"Lib Ern",f"Exu lrib ({name}) asp neat aife")
+            self.libs[rename] = self.libs[name]
+            del self.libs[name]
+            return None
 
         if isinstance(node, ModulVariable):
             env = self.moduls.get(node.modul)
@@ -641,16 +650,17 @@ class Interpreter:
             if hasattr(iterable, "get"):iterable = iterable.get()
             for value in iterable:
                 if isinstance(value, (list, tuple)):
-                    if len(node.var) != len(value):raiseE(node, "Forp Ern", "Lenev mismatch")
+                    if len(node.var) != len(value):raiseE(node, "Forp Ern", "Iterfal Lenev asp perl valtrar neat qenev")
                     for name, val in zip(node.var, value):self.env.set(node, name, None, val)
                 else:
-                    if len(node.var) != 1:raiseE(node, "Keonpoketnen Ern", "neat atfein keonpoketnosan")
+                    if len(node.var) != 1:raiseE(node, "Keonpoketnen Ern", "Neat atfein keonpoketnosan")
                     self.env.set(node, node.var[0], None, value)
                 try:self.eval(node.body)
                 except ContExcp:continue
                 except BreakExcp:break
             self.env = old_env
             return None
+        
         if isinstance(node, Yield):
             raise YieldEx([self.eval(a) for a in node.value])
             
@@ -662,11 +672,12 @@ class Interpreter:
                 except BreakExcp:break
             self.env = old
             return None
+        
         if isinstance(node, FutureCall):
             name = node.name
             func = self.env.get(node,name).valtue
             argsl = [self.unwrap(self.eval(i)) for i in node.args]
-            qc = self.libs["quant"].vars.get("frutupheLonevAfon",1000)
+            qc = self.libs["quant"].vars.get("radoeRoderAfon",1000000000)
             llc = self.unwrap(self.eval(func.probs)).get("lonev",qc)
             if isinstance(func,FutureFunc):
                 tot = None
