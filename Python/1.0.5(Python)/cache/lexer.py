@@ -56,7 +56,7 @@ trns = {
     "GT":"roghLitot","LT":"lofLitot",
     "KALFEN":"kalfen","FRCT":"frounct",
     "IF":"ifnt","ELSE":"elsnt","ELIF":"efnt",
-    "PTRDEL":"peontDelnos",
+    "PTRDEL":"peontDelnos","IMPORT":"inkleodnos",
     "MEHEN":"mehen","FOR":"forp","PERL":"perl","SERL":"serl",
     "FORPPERL":"keryenos","MAPHPERL":"maphnos","AS":"asken",
     "TYPE":"typect","EQUAL":"qenev(=)","EQEQ":"duphAfonQenev",

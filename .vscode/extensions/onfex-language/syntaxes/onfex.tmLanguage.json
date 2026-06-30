@@ -48,7 +48,7 @@
       "patterns": [
         {
           "name": "keyword.control.onfex",
-          "match": "\\b(?:kalfen|frounct|inkleodnos|frutupheFrounct|frutuphenos|ifnt|elsnt|efnt|peontDelnos|forp|perl|eower|keryenos|maphnos|asken|serl|kalfenCernos|oed|mot|brof|neat|ophe|asp|intf|mehen|module|quant|as|mult|retrunos|brontnos|rondnos|trunth|franth|noph)\\b"
+          "match": "\\b(?:kalfen|frounct|inkleodnos|frutupheFrounct|frutuphenos|ifnt|elsnt|efnt|peontDelnos|forp|perl|eower|keryenos|asken|serl|oed|mot|brof|neat|ophe|asp|intf|mehen|wrossnosMot|wrossnosLrib|retrunos|brontnos|rondnos|trunth|franth|noph)\\b"
         },
         {
           "name": "storage.type.onfex",
