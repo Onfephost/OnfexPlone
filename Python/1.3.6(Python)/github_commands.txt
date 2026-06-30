@@ -92,4 +92,38 @@ Git komutları ve işlevleri:
     - Mevcut dalın tabanını başka bir dalın sonuna taşır.
     - Geçmişi daha temiz hale getirmek için kullanılır.
 
+Örnek Komutlar:
+
+- Yeni depo oluşturma ve ilk commit:
+  git init
+  git add .
+  git commit -m "ilk commit"
+
+- Uzak depoyu klonlama:
+  git clone https://github.com/owner/repo.git
+
+- Dal oluşturma ve geçiş:
+  git checkout -b yenidal
+
+- Değişiklikleri gönderme:
+  git add .
+  git commit -m "özellik eklendi"
+  git push -u origin yenidal
+
+- Uzak değişiklikleri alma:
+  git pull origin main
+
+- Uzak depoyu klonladıktan sonra yeni dosya ekleme:
+  git clone https://github.com/owner/repo.git
+  cd repo
+  echo "Merhaba" > yeni_dosya.txt
+  git add yeni_dosya.txt
+  git commit -m "yeni_dosya.txt eklendi"
+  git push origin main
+
+- Saklama ve geri yükleme:
+  git stash
+  git checkout main
+  git stash pop
+
 Bu dosya, Git terminal kullanımına hızlı bakış için hazırlanmıştır.
