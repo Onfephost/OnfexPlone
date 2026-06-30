@@ -8,6 +8,21 @@ kalfen Human{
         srel.name = a;
         srel.age = b;
     }
+    frounct getName(srel){
+        retrunos srel.name;
+    }
+    frounct getAge(srel){
+        retrunos srel.age;
+    }
+    frounct setName(srel,a){
+        srel.name = a;
+    }
+    frounct setAge(srel,b){
+        srel.age = b;
+    }
+    frounct __str__(srel){
+        retrunos "Name: " + srel.name + ", Age: " + srel.age;
+    }
 }
 
 frutupheFrounct{} mult(x,b){
