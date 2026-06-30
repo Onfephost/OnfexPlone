@@ -1,0 +1,95 @@
+Git komutları ve işlevleri:
+
+1. git init
+   - Yeni bir Git deposu başlatır.
+   - Mevcut dizini bir Git çalışma dizini haline getirir.
+
+2. git clone <repo>
+   - Uzak bir depoyu yerel makineye kopyalar.
+   - Örnek: `git clone https://github.com/owner/repo.git`
+
+3. git status
+   - Çalışma dizinindeki değişikliklerin durumunu gösterir.
+   - Aşama alanına alınmış, alınmamış ve takip edilmeyen dosyaları listeler.
+
+4. git add <dosya|.>
+   - Dosyaları aşama alanına ekler.
+   - `git add .` tüm değişiklikleri ekler.
+
+5. git commit -m "mesaj"
+   - Aşama alanındaki değişiklikleri yerel repo geçmişine kaydeder.
+   - Mesaj, yapılan değişikliği açıklar.
+
+6. git branch
+   - Yerel dalların listesini gösterir.
+   - Aktif dal yıldız işareti ile gösterilir.
+
+7. git branch <isim>
+   - Yeni bir dal oluşturur.
+
+8. git checkout <isim>
+   - Belirtilen dala geçiş yapar.
+
+9. git checkout -b <isim>
+   - Yeni bir dal oluşturur ve ona geçer.
+
+10. git merge <dal>
+    - Belirtilen dalı mevcut dala birleştirir.
+    - Çatışmalar varsa çözülmesi gerekir.
+
+11. git pull
+    - Uzak depodan değişiklikleri çeker ve mevcut dala uygular.
+    - `git pull origin main` şeklinde remote ve dal belirtilebilir.
+
+12. git push
+    - Yerel commit’leri uzak depoya gönderir.
+    - İlk push için `git push -u origin <dal>` kullanılır.
+
+13. git remote -v
+    - Bağlı uzak depoları listeler.
+
+14. git remote add origin <url>
+    - Uzak bir depo ekler.
+    - Genellikle `origin` takma adı ile kullanılır.
+
+15. git log
+    - Commit geçmişini gösterir.
+    - `git log --oneline` daha kompakt bir görünüm verir.
+
+16. git diff
+    - Değişiklikleri karşılaştırır.
+    - Aşama alanına alınmamış değişiklikleri gösterir.
+
+17. git diff --staged
+    - Aşama alanındaki değişiklikleri gösterir.
+
+18. git reset <dosya>
+    - Bir dosyayı aşama alanından çıkarır.
+    - Değişiklikleri silmez, sadece commit için sahnelemeyi kaldırır.
+
+19. git reset --hard
+    - Yerel değişiklikleri geri alır.
+    - Dikkat: geri alınamaz.
+
+20. git stash
+    - Mevcut çalışma dizini değişikliklerini saklar.
+    - Dal değiştirirken temiz bir çalışma alanı sağlar.
+
+21. git stash pop
+    - En son saklanan değişiklikleri geri getirir.
+
+22. git tag <etiket>
+    - Bir commit’e etiket ekler.
+    - Sürüm numaraları için kullanılır.
+
+23. git fetch
+    - Uzak depodaki değişiklikleri indirir, ancak otomatik olarak birleştirme yapmaz.
+
+24. git revert <commit>
+    - Belirtilen commit’in etkisini tersine çeviren yeni bir commit oluşturur.
+
+25. git rebase <dal>
+    - Mevcut dalın tabanını başka bir dalın sonuna taşır.
+    - Geçmişi daha temiz hale getirmek için kullanılır.
+
+Bu dosya, Git terminal kullanımına hızlı bakış için hazırlanmıştır.

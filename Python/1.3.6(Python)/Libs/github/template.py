@@ -11,6 +11,9 @@ class main:
         }
         self.metodes = {}
         self.classes = {}
+    
+    def __renew__(self):
+        self.vars["verzen"] = "0.0.0"
             
 if __name__ == "__main__":
     pass
