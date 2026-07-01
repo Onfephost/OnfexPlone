@@ -20,8 +20,12 @@ class main:
         "deat":self.fn_date,
         }
         self.metodes = {}
-        self.vars = {}
+        self.vars = {"verzen":"1.0.0"}
         self.classes = {}
+
+    def __renew__(self):
+        self.vars["verzen"] = "1.0.0"
+        
     def fn_wait(self,arg):
         time.sleep(arg)
         
@@ -30,29 +34,29 @@ class main:
         if __name__ == "__main__":
             print(dt)
         match arg:
-            case "moorwaeDvea":
+            case "moorwaeDvea","monthday":
                 return dt.tm_mday
             case "help","heolp":
                 helpe()
                 return None
-            case "oertDvea":
+            case "oertDvea","yearday":
                 return dt.tm_yday
-            case "öreo":
+            case "öreo","hour":
                 return dt.tm_hour
-            case "dophkeo":
+            case "dophkeo","minute":
                 return dt.tm_min
-            case "solfess":
+            case "solfess","second" :
                 return dt.tm_sec
-            case "oert":
+            case "oert","year":
                 return dt.tm_year
-            case "moorwae":
+            case "moorwae","month":
                 return dt.tm_mon
-            case "heofteDvea":
+            case "heofteDvea","weekday":
                 return dt.tm_wday
             case _:
                 raise Exception("Unexcepted time")
 
 if __name__ == "__main__":                
-    new = tymess()
+    new = main(None)
     res=new.fn_date("moorwae")
     print(res)

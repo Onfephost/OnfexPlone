@@ -1,30 +1,40 @@
 import sys
 from dataclasses import dataclass as dc
-import numpy as np
 import random as ra
-from cache.sorter import *
+import os
+
 class Neom:
     def __init__(self,a):
         self.veot = a
         self.data = a
         
-    def __repr__(self):
+    def __out__(self):
         return f"[{' '.join([str(a) for a in self.veot])}]"
+    
+    def __type__(self):
+        return "<NeomArrey>"
+    
+    def __onfex_eval__(self):
+        return self.data
     
 class main:
     def __init__(self,node):
         self.node = node
         self.vars = {
-        "version":"0.9.1","extraFeatures":False,
+        "version":"0.9.6",
         }
         self.metodes = {
-        "adnos":self.mt_plus,"olnos":self.mt_times,"divnos":self.mt_divide,"ednos":self.mt_minus,"sumnev":self.mt_sum,
+        "sumnev":self.mt_sum,
         "listhPerl":self.mt_list,        
         "rephSheapenos":self.mt_reshape,
         "kratnev":self.mt_sort,
         }
         self.funcs = {
         "rundomArrey":self.fn_randArr,
+        "adnos":self.fn_plus,
+        "moltnos":self.fn_times,
+        "ernos":self.fn_divide,
+        "ednos":self.fn_minus,
         }
         self.classes = {
         "neom":Neom,
@@ -35,16 +45,25 @@ class main:
     def main(self):
         #Private
         self.neoms = {}
-    
-    def turn(self,val):
+        
+    def __renew__(self):
+        self.vars["version"] = "0.9.6"
+   
+    def turn(self,val,mustBeNeom=False):
         sys.path.append("./RealOnfexCompiler")
-        from Exceptions import raiseE
-        if isinstance(val, list):
+        try:
+            from cache.Exceptions import raiseE
+        except:
+            pass
+        from cache.Exceptions import raiseE
+        if isinstance(val, list) and not mustBeNeom:
             return Neom(val)
         elif isinstance(val, Neom):
             return val
+        elif isinstance(val, list) and mustBeNeom:
+            raiseE(self.node,"NeomOnfex Ern",f"NeomArrey wraithvognosan apht listh gephvognosan")
         else:
-            raiseE(self.node,"NeomOnfex Ern",f"listh or Neom  wraithvognosan apht {type(val)} gephvognosan")
+            raiseE(self.node,"NeomOnfex Ern",f"listh or NeomArrey wraithvognosan apht {type(val)} gephvognosan")
 
     def mt_sum(self,a):
         s = 0
@@ -52,34 +71,34 @@ class main:
             s += i
         return s
         
-    def mt_plus(self,obj,b):
+    def fn_plus(self,obj,b):
         l = []
-        b = self.turn(b)
-        obj = self.turn(obj)
+        b = self.turn(b,True)
+        obj = self.turn(obj,True)
         for x,y in zip(obj.data,b.data):
             l.append(x+y)
         return Neom(l)
         
-    def mt_times(self,a,b):
+    def fn_times(self,a,b):
         l = []
-        a = self.turn(a)
-        b = self.turn(b)
+        a = self.turn(a,True)
+        b = self.turn(b,True)
         for x,y in zip(a.data,b.data):
             l.append(x*y)
         return Neom(l)
     
-    def mt_divide(self,a,b):
+    def fn_divide(self,a,b):
         l = []
-        a = self.turn(a)
-        b = self.turn(b)
+        a = self.turn(a,True)
+        b = self.turn(b,True)
         for x,y in zip(a.data,b.data):
             l.append(x/y)
         return Neom(l)
         
-    def mt_minus(self,a,b):
+    def fn_minus(self,a,b):
         l = []
-        a = self.turn(a)
-        b = self.turn(b)
+        a = self.turn(a,True)
+        b = self.turn(b,True)
         for x,y in zip(a.data,b.data):
             l.append(x-y)
         return Neom(l)
@@ -91,6 +110,8 @@ class main:
             return arg
             
     def mt_sort(self,obj):
+        from neomOnfex.cache.sorter import sort
+        obj = self.turn(obj,True)
         res = sort(obj.veot)
         return Neom(res)
         
@@ -108,11 +129,21 @@ class main:
         return l
                 
     def mt_reshape(self,ar,*args):
-        ar = self.turn(ar)
-        l = np.array(ar.data)
-        l = l.reshape(*args)
-        return Neom(l.tolist())
+        ls = ar.veot.copy()
+        new = []
+        l = len(ls)
+        if l%args[0] != 0:
+            try:
+                from cache.Exceptions import raiseE
+            except:
+                pass
+            raiseE(self.node,"NeomOnfex Ern",f"NeomArrey wraithvognosan apht {args[0]} gephvognosan")
+        for i in range(0,l,args[0]):
+            new.append(ls[i:i+args[0]])
+        return Neom(new)
         
 if __name__ == "__main__":
-    pass
-    print(None is None)
+    os.system("clear")
+    new = main(None)
+    res=new.fn_randArr([1,10,8,"intg"])
+    print(new.mt_reshape(Neom(res),2).data)

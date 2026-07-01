@@ -10,8 +10,8 @@ class main:
             from Exceptions import raiseE
             raiseE(self.node,"Main Lib Error","This lib is not avaiable")
         self.funcs = {
-        "evalCondition":self.fn_eov,"sum":self.fn_sum,
-        "crashSystem":self.fn_crash,"eval":self.fn_eval,
+        "sum":self.fn_sum,
+        "crashSystem":self.fn_crash,
         }
         self.vars = {
         "pornWebsites":["xhamster","pornhub","doeda","porostoporno","bdsmlust"],
@@ -19,9 +19,6 @@ class main:
         self.metodes = {}
         self.classes = {}
         self.r = "n"
-    def fn_eov(self,arg):
-        import cache.TypeControler as tc
-        return tc.evalCond(arg)
         
     def fn_sum(self,arg:list):
         s = 0
@@ -31,7 +28,7 @@ class main:
         
     def fn_crash(self):
         if self.r and self.r == "n":
-            self.r = input("Are you sure to crashing system?[y/n] ")
+            self.r = input("Are you sure to crashing system?[y/n] ").strip().lower()
         if self.r == "y":
             while True:
                 self.call()
@@ -39,8 +36,7 @@ class main:
             pass
     def call(self):
         self.fn_crash()        
-    def fn_eval(self,arg):
-        return eval(arg)
+    
         
 if __name__ == "__main__":
     a = main(None)    

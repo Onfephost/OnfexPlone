@@ -30,17 +30,20 @@ class main:
             "cesnos":self.fn_create,
         }
         self.vars = {
-            "version":"0.0.1",
+            "verzen":"1.5.7",
             "test":[1,2,3],
         }
         self.metodes = {
-        "wervognos":self.mt_show,
+        "bonWernos":self.mt_show,
         "veotGephnos":self.mt_getData,
         }
         self.classes = {
         "taphlot":taphlot,
         }
         self.main()
+        
+    def __renew__(self):
+        self.vars["verzen"] = "1.5.7"
     
     def main(self):
         self.taphlotrar = {}
@@ -49,12 +52,26 @@ class main:
     def fn_create(self,n,t,d):
         self.taphlotrar[n] = taphlot(n,t,d)
         return self.taphlotrar[n]
+    
+    def fn_delete(self,n):
+        if n in self.taphlotrar:
+            del self.taphlotrar[n]
+        else:
+            print(f"{n} is not in taphlotrar")
+            
+    def fn_get(self,n):
+        if n in self.taphlotrar:
+            return self.taphlotrar[n]
+        else:
+            print(f"{n} is not in taphlotrar")
+            return None
         
     def mt_show(self,tf):     
         if isinstance(tf, taphlot):tf.show()
         elif isinstance(tf,str) and tf in self.taphlotrar:self.taphlotrar[tf].show()
             
-    def mt_getData(self,obj):return obj.veot
+    def mt_getData(self,obj):
+        return obj.veot
                 
 if __name__ == "__main__":                
     new = main()

@@ -22,7 +22,7 @@ def loadLib(node,lib):
                 return lib.main(node,True)
             
             case "kachenter":            
-                import Libs.kachenter.karchenter as lib
+                import Libs.karchenter.karchenter as lib
                 return lib.main(node)
                 
             case "meathess":
