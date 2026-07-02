@@ -8,11 +8,11 @@ class main:
     def __init__(self,node):
         self.node = node
         self.funcs = {
-            "kopeonosRepo": self.fn_cloneRepo,
-            "gouphnosRepo": self.fn_cdRepo,
-            "adnosPerlRepo": self.fn_addPerlRepo,
+            "kopeonosReop": self.fn_cloneRepo,
+            "gouphnosReop": self.fn_cdRepo,
+            "adnosPerlReop": self.fn_addPerlRepo,
             "commitCernos": self.fn_commitCernos,
-            "pushRepo": self.fn_pushRepo,
+            "serdenosPerlReop": self.fn_pushRepo,
             }
         self.vars = {
             "verzen":"0.6.1",
@@ -25,7 +25,7 @@ class main:
     
     def fn_cloneRepo(self,name):
         try:
-            os.system(f"git clone {name}")
+            os.system(f"git clone '{name}'")
         except Exception as e:
             print(f"Error occurred while cloning repository: {e}")
             
@@ -37,7 +37,7 @@ class main:
             
     def fn_addPerlRepo(self,name):
         try:
-            os.system(f"git add {name}")
+            os.system(f"git add '{name}'")
         except Exception as e:
             print(f"Error occurred while adding repository: {e}")
 
@@ -47,9 +47,9 @@ class main:
         except Exception as e:
             print(f"Error occurred while committing changes: {e}")
             
-    def fn_pushRepo(self,remote):
+    def fn_pushRepo(self,branch):
         try:
-            os.system(f"git push origin {remote}")
+            os.system(f"git push origin '{branch}'")
         except Exception as e:
             print(f"Error occurred while pushing to remote: {e}")
 

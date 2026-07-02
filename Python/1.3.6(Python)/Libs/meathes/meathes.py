@@ -24,7 +24,10 @@ class main:
     def __init__(self,node=None):
         self.node = node
         self.vars = {
-        "version":"1.0.2","infy":math.inf,"e":math.e,"NkN":math.nan,
+        "version":"1.0.2",
+        "infi":math.inf,
+        "e":math.e,
+        "NkN":math.nan,
         }
         self.classes = {}
         self.metodes = {
@@ -36,13 +39,14 @@ class main:
             "kosnev":self.fn_cos, "akosnev":self.fn_acos, "kosihnev":self.fn_cosh, "akosihnev":self.fn_acosh,
             "sintnev":self.fn_sin,"asintnev":self.fn_asin,"sinihnev":self.fn_sinh,"asinihnev":self.fn_asinh,
             "tantnev":self.fn_tan,"atantnev":self.fn_atan,"tanihnev":self.fn_tanh,"atanihnev":self.fn_atanh,
-            "pasEsalNeom":self.fn_asal,"expe":self.fn_exp,
+            "pasEsalNeom":self.fn_asal,"expe":self.fn_exp,"kombinev":self.fn_comp,"absnev":self.fn_abs,"rodunev":self.fn_round,
+            "radnev":self.fn_radians,"degnev":self.fn_degrees,
             "tünkernev":self.fn_tunc,
             "seaketnev":self.fn_ceil,
             "fotkatnev":self.fn_floor,
         }
     def __renew__(self):
-        self.vars["infy"] = math.inf
+        self.vars["infi"] = math.inf
         self.vars["e"] = math.e
         self.vars["NkN"] = math.nan
         
@@ -80,6 +84,10 @@ class main:
     def fn_tunc(self,val):return math.trunc(val)
     def fn_floor(self,val):return math.floor(val)
     def fn_ceil(self,val):return math.ceil(val)
+
+    def fn_abs(self,val):return abs(val)
+    def fn_round(self,val):return round(val)
+    def fn_comp(self,val1,val2):return math.comb(val1,val2)
 
     def fn_asal(self,val):
         if multies(self.node,val) == 2:return True

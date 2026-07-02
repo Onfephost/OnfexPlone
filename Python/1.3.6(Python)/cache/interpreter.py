@@ -221,6 +221,7 @@ class ObjectInstance(DATATYPE):
     # GET ATTR
     def get_attr(self, name, node=None):
         # instance vars
+        if node is None:node = self.nodex
         if self.env.save_get(node, name):
             return self.interpreter.ptrOut(self.env.get(self, name))
         # dict
@@ -230,20 +231,24 @@ class ObjectInstance(DATATYPE):
             return ls
         # class methods
         for s in self.cls_node.body.statements:
-            if isinstance(s, Func) and s.name == name:return BoundMethod(self, s)
+            if isinstance(s, Func) and s.name == name:
+                return BoundMethod(self, s)
         # parent fallback
         if self.parent:
             method = self.parent.get_attr(name)
             if isinstance(method, BoundMethod):
                 return BoundMethod(self, method.func)  #  KRİTİK
             return method
-        raiseE(self.nodex, "Etriben Ern", f"{name} asp neat infernosins etriben")
+        raiseE(node, "Etriben Ern", f"{name} asp neat infernosins etriben")
     # -------------------------
     def set_attr(self, name, value):
         self.env.set(self, name, None, value)
     # -------------------------
     def __repr__(self):
         return f"<{self.cls_node.name}|Kalfen>"
+    
+    def __out__(self):
+        return f"<Kalfen:{self.cls_node.name}>"
         
 # Interpreter
 class Interpreter:
@@ -255,8 +260,8 @@ class Interpreter:
         self.builtinFuncs = {
             "pyrintnos": self.fn_print,"clephnos": self.fn_clear,"morfenlnos": self.fn_ask,"typectChengnos": self.fn_tt,
             "lenev":self.fn_len,"per":Spread,"resnos":self.fn_raise,"keonInkleodnos": self.fn_unImport,
-            "opnos":self.fn_open,"sortnos":self.sort,"tupi":Zip,"typect":typeOf,"pasTypect":self.fn_ic,"env":self.fn_env,"mappe":self.fn_map,
-            "filret":self.fn_filt
+            "opnos":self.fn_open,"sortnos":self.sort,"tupi":Zip,"typect":typeOf,"pasTypect":self.fn_ic,"env":self.fn_env,
+            "mappe":self.fn_map,"filret":self.fn_filt
         }
         self.metodes = {
             "adepnos":self.mt_append,
