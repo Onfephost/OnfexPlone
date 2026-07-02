@@ -7,8 +7,6 @@ from cache.lexer import lex
 from cache.parser import *
 from cache.document import OnfexPloneDoph as OPD
 
-# DOC
-#/DOC
 def check(l,*args):
     rs = []
     for i in l:
@@ -82,7 +80,8 @@ class GeneratorObj(DATATYPE):
     def run(self):
         while self.stack:
             frame = self.stack[-1]
-            if frame.index >= len(frame.statements):self.stack.pop();continue
+            if frame.index >= len(frame.statements):
+                self.stack.pop();continue
             stmt = frame.statements[frame.index]
             frame.index += 1
             #  BLOCK
@@ -125,14 +124,18 @@ class GeneratorObj(DATATYPE):
                 if isinstance(value, (list, tuple)):
                     for name, val in zip(stmt.var, value):
                         self.env.set(stmt, name, None, val)
-                else:self.env.set(stmt, stmt.var[0], None, value)
+                else:
+                    self.env.set(stmt, stmt.var[0], None, value)
                 self.stack.append(Frame(stmt.body.statements))
                 continue
 
             #  NORMAL EXEC
-            try:self.interpreter.eval(stmt)
-            except YieldEx as y:return y.value
-            except RetEx:raise StopIteration
+            try:
+                self.interpreter.eval(stmt)
+            except YieldEx as y:
+                return y.value
+            except RetEx:
+                raise StopIteration
         raise StopIteration
         
     def __out__(self):
@@ -162,6 +165,7 @@ class BoundMethod:
             result = self.obj.interpreter.eval(self.func.body)
         except RetEx as e:
             result = e.value
+            
         self.obj.interpreter.env = old_env
         return result
 # ObjectInstance
@@ -257,7 +261,7 @@ class Interpreter:
         self.builtinFuncs = {
             "pyrintnos": self.fn_print,"clephnos": self.fn_clear,"morfenlnos": self.fn_ask,"typectChengnos": self.fn_tt,
             "lenev":self.fn_len,"per":Spread,"resnos":self.fn_raise,"keonInkleodnos": self.fn_unImport,
-            "opnos":self.fn_open,"sortnos":self.sort,"tupi":Zip,"typect":typeOf,"pasTypect":self.fn_ic,"env":self.fn_env,
+            "opnos":self.fn_open,"sortnos":self.sort,"tupez":Zip,"typect":typeOf,"pasTypect":self.fn_ic,"env":self.fn_env,
             "mappe":self.fn_map,"filret":self.fn_filt
         }
         self.metodes = {
@@ -266,7 +270,7 @@ class Interpreter:
         
         self.builtinClasses = {"apoter":Range}
         self.builtinThreads = {}
-        #LibFeature
+        # LibFeature
         self.libs = {}
         self.libs["quant"] = la.loadLib(None,"quant")
         self.libs["reop"] = la.loadLib(None,"estorge")
@@ -366,11 +370,12 @@ class Interpreter:
         if isinstance(node, Variable):
             return self.ptrOut(self.env.get(node,node.name))
         # ---------------- LITERALS ----------------
-        if isinstance(node, (Int,Float,String,Bool,Null,Type,Peontderen)):return node
-        if isinstance(node, ParamAssign):return node
+        if isinstance(node, (Int,Float,String,Bool,Null,Type,Peontderen,ParamAssign)):return node
         # ---------------- LIST - DICT ----------------
-        if isinstance(node, ListLiteral):return ListLiteral(node.token,[self.eval(x) for x in node.items])
-        if isinstance(node, DictLiteral):return DictLiteral(node.token,{self.eval(k): self.eval(v) for k,v in node.pairs})
+        if isinstance(node, ListLiteral):
+            return ListLiteral(node.token,[self.eval(x) for x in node.items])
+        if isinstance(node, DictLiteral):
+            return DictLiteral(node.token,{self.eval(k): self.eval(v) for k,v in node.pairs})
         # ---------------- INDEX ACCESS ----------------
         if isinstance(node, IndexAccess):
             target = self.unwrap(self.eval(node.target))
@@ -387,7 +392,6 @@ class Interpreter:
             del target[index];
             self.env.heap[self.env.pointers[node.target.name]].valtue = target
             return None
-        # ---------------- INDEX ASSIGN ----------------
         # ---------------- BINARY OPERATIONS ----------------
         if isinstance(node,BinOp):
             left = self.unwrap(self.eval(node.left))
@@ -453,8 +457,10 @@ class Interpreter:
             args = [self.unwrap(self.eval(a)) for a in node.args]
             if node.name in self.metodes:
                 pc = self.getParams(self.metodes[node.name])
-                if len(pc) == len(args)+2:return self.metodes[node.name](node,obj,*args)
-                else:raiseE(node, "Promter Ern",
+                if len(pc) == len(args)+2:
+                    return self.metodes[node.name](node,obj,*args)
+                else:
+                    raiseE(node, "Promter Ern",
                     f"{node.name} asp {len(pc)-2} afon promter wraithvegnosan apht {len(args)} afon gephvegnosan")
             if isinstance(obj,ObjectInstance):
                 args.insert(0,obj)
@@ -466,7 +472,7 @@ class Interpreter:
             raiseE(node, "Meoteds Ern", f"Undefined method {node.name}")
 
         # ---------------- MEMBER ACCESS ----------------
-        if isinstance(node, (DataAttr,MemberAccess)):
+        if isinstance(node, (MemberAccess)):
             obj = self.eval(node.obj)
             if isinstance(obj, ObjectInstance):return obj.get_attr(node.atr.value,node.atr)
             elif isinstance(obj, dict):
@@ -477,10 +483,13 @@ class Interpreter:
             raiseE(node,"Ettriberen Ern",f"{node.atr.value} asp inferdosins ettriben")
             
         #Return Break Continue
-        if isinstance(node, Return):raise RetEx(self.eval(node.value))
-        if isinstance(node, Break):raise BreakExcp()
-        if isinstance(node, Continue):raise ContExcp()   
-        #PointerDelete
+        if isinstance(node, Return):
+            raise RetEx(self.eval(node.value))
+        if isinstance(node, Break):
+            raise BreakExcp()
+        if isinstance(node, Continue):
+            raise ContExcp()   
+        # ---------------- POINTER DELETE ----------------
         if isinstance(node, PointerDel):
             res = self.env.heap[self.env.pointers[(node.ptr).name]]
             nm = res.valtNam
@@ -488,16 +497,17 @@ class Interpreter:
             if nm in self.env.pointers and adr in self.env.heap:
                 del self.env.pointers[nm];del self.env.heap[adr]
             return None
+        # ----------------- POINTER GET ----------------
         if isinstance(node, PointerGet):
             res = self.env.heap[self.env.pointers[(node.var).name]]
             return wrap(node,res)
-        #Import as
+        # ----------------- IMPORT ----------------
         if isinstance(node, ImportAs):
             lib_obj = la.loadLib(node.lib,node.lib.value)
             As = node.As
             self.libs[As] = lib_obj
             return None
-        #Import
+        # ----------------- MODULE IMPORT ----------------
         if isinstance(node, ModulImport):
             doc = 0
             try:
@@ -510,7 +520,7 @@ class Interpreter:
             the = node.As.value
             self.moduls[the.split("/")[-1]] = mod 
             return None
-        
+        # ----------------- MODULE RENAME ----------------
         if isinstance(node,TypingModul):
             name = node.name.value
             rename = node.value.value
@@ -519,7 +529,7 @@ class Interpreter:
             self.moduls[rename] = self.moduls[name]
             del self.moduls[name]
             return None
-        
+        # ----------------- LIB RENAME ----------------
         if isinstance(node, TypingLib):
             name = node.name.value
             rename = node.value.value
@@ -528,7 +538,7 @@ class Interpreter:
             self.libs[rename] = self.libs[name]
             del self.libs[name]
             return None
-
+        # ----------------- MODULE VARIABLE ----------------
         if isinstance(node, ModulVariable):
             env = self.moduls.get(node.modul)
             if env is None:
@@ -539,6 +549,7 @@ class Interpreter:
                 return self.ptrOut(res)
             else:
                 raiseE(node.name,"Mot Valt ern",f"Exu mot valt ({node.name.value}) asp neat aife")
+        # ----------------- MODULE CALL ----------------
         if isinstance(node, ModulCall):
             env1 = self.moduls.get(node.modul)
             args = [self.unwrap(self.eval(a)) for a in node.args]
@@ -555,9 +566,7 @@ class Interpreter:
             else:
                 raiseE(node.name,"Mot ern","Exu frounct asp neat aife")
             return None
-        #Lib Assign
-        
-        #Lib Variable
+        # ---------------- LIB VARIABLE ----------------
         if isinstance(node, LibVariable):
             lib = self.libs.get(node.lib)
             if not lib:raiseE(node,"Lib Error",f"Unnamed lib {node.lib}")
@@ -566,7 +575,7 @@ class Interpreter:
             if val is None:
                 raiseE(node,"Lib Error",f"Undefined lib var {node.name.value}")
             return wrap(node,(val))
-        #Lib Method Call
+        # ---------------- LIB METHOD CALL ----------------
         if isinstance(node, LibMethodCall):
             obj = self.eval(node.obj)
             args = [self.unwrap(self.eval(a)) for a in node.args]
@@ -581,7 +590,7 @@ class Interpreter:
                 raiseE(node.func, "Promter Ern",
                 f"{node.lib}::{node.func.value} asp {len(parC)-1} afon promter gephvegnosfer apht {len(args)} afon gephvegnosan")
             return wrap(node,fn(obj, *args))
-        # Lib Call
+        # ---------------- LIB CALL ----------------
         if isinstance(node, LibCall):
             lib = self.libs.get(node.lib)
             lib.node = [a.token for a in node.args]
@@ -623,13 +632,11 @@ class Interpreter:
                     return ObjectInstance(nm,args,self,node)
             print(self.env.get(node,node.name))
             
-        #Thread
+        # ---------------- THREAD ----------------
         if isinstance(node,Thread):
             if node.name in self.builtThreads:
                 cls = self.builtThreads[node.name];args.append(node.body);return cls(node,*args)
-            else:raiseE(node,"Tread Ern",f"{node.name} asp neat inferdosins tread")
-        #Run Func
-        #Run Class        
+            else:raiseE(node,"Tread Ern",f"{node.name} asp neat inferdosins tread")   
         # ---------------- IF ----------------
         if isinstance(node, If):
             hd = False
@@ -646,7 +653,7 @@ class Interpreter:
             if node.else_body and not hd:
                 old = self.env;self.eval(node.else_body);self.env = old
             return None
-        #For Loop
+        # ---------------- FORP ----------------
         if isinstance(node, ForpNode):
             old_env = self.env;iterable = self.eval(node.enter)
             if hasattr(iterable, "get"):iterable = iterable.get()
@@ -662,10 +669,10 @@ class Interpreter:
                 except BreakExcp:break
             self.env = old_env
             return None
-        
+        # ---------------- YIELD ----------------
         if isinstance(node, Yield):
             raise YieldEx([self.eval(a) for a in node.value])
-            
+        # ---------------- WHILE ---------------- 
         if isinstance(node, While):
             old = self.env
             while self.unwrap(self.eval(node.cond)):
@@ -674,7 +681,7 @@ class Interpreter:
                 except BreakExcp:break
             self.env = old
             return None
-        
+        # ---------------- FUTURE CALL ----------------
         if isinstance(node, FutureCall):
             name = node.name
             func = self.env.get(node,name).valtue
@@ -732,14 +739,14 @@ class Interpreter:
             self.env.set(func_node, "srel", None, instance)
         # çalıştır
         result = None
-        try:result = self.eval(func_node.body)
-        except RetEx as e:result = (e.value)
+        try:
+            result = self.eval(func_node.body)
+        except RetEx as e:
+            result = (e.value)
         self.env = old_env
         return result
 
-    # =========================
     # BUILTIN FUNCTIONS
-    # =========================
     def fn_print(self,node,*args):
         final_args = [];e = "\n";sp = " " 
         e = self.libs["onfextrode"].vars.get("fowLt",e)
@@ -775,14 +782,17 @@ class Interpreter:
         if not isinstance(ty,Type):
             return None
         return wrap(node,self.unwrap(data),ty)
+    
     def fn_ic(self,node,data,ty):
         if typeOf(data) == self.outOf(ty):
             return Bool(True)
         else:
             return Bool(False)
+        
     def fn_join(self,node,*args):
         res = " ".join([str(i) for i in args])
         return res
+    
     def fn_unImport(self,node, lib):
         lib = self.unwrap(lib)
         deleted = False
@@ -843,7 +853,7 @@ class Interpreter:
             path = a.gouphins
             return open(path,"r").read()
         else:
-            raiseE(node,"Typect Ern","Dophcumt asp wraithvognosan apht ophe asp gephvognosan")
+            raiseE(node,"Typect Ern","Dophcumt asp wraithvognosan apht baskeo typect asp gephvognosan")
             
     def sort(self,node,liste):
         liste = self.unwrap((liste))
@@ -865,4 +875,4 @@ class Interpreter:
                 if arg2 == open(path,"r").read():
                     break
         else:
-            raiseE(node,"Typect Ern","Dophcumt asp wraithvognosan apht ophe asp gephvognosan")
+            raiseE(node,"Typect Ern","Dophcumt asp wraithvognosan apht baskeo typect asp gephvognosan")
