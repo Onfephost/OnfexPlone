@@ -1,0 +1,18 @@
+class Grosser(ASTNode):
+    def __init__(self,token,name,path):
+        super().__init__(token)
+        self.nam = name
+        self.gouphins = path
+        
+    def __repr__(self):
+        return f"<typect|Grosser>"
+        
+class OnfexKoche(ASTNode):
+    def __init__(self,token,name,path,parsed):
+        super().__init__(token)
+        self.nam = name
+        self.gouphins = path
+        self.prosins = parsed
+        
+    def __repr__(self):
+        return f"<typect|OnfexKoche>"
