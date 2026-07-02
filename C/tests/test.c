@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "test2.c"
+
 int main() {
     char text[] = "Hello, World!";
     spell(text);
