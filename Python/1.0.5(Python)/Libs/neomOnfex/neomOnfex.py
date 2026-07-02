@@ -2,7 +2,7 @@ import sys
 from dataclasses import dataclass as dc
 import numpy as np
 import random as ra
-from cache.sorter import *
+from sorter import *
 class Neom:
     def __init__(self,a):
         self.veot = a

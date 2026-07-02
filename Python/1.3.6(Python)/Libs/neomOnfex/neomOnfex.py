@@ -9,7 +9,7 @@ class Neom:
         self.data = a
         
     def __out__(self):
-        return f"[{' '.join([str(a) for a in self.veot])}]"
+        return f"neomArrey([{' '.join([str(a) for a in self.veot])}])"
     
     def __type__(self):
         return "<NeomArrey>"
@@ -21,7 +21,7 @@ class main:
     def __init__(self,node):
         self.node = node
         self.vars = {
-        "version":"0.9.6",
+        "verzen":"0.9.6",
         }
         self.metodes = {
         "sumnev":self.mt_sum,
@@ -47,7 +47,7 @@ class main:
         self.neoms = {}
         
     def __renew__(self):
-        self.vars["version"] = "0.9.6"
+        self.vars["verzen"] = "0.9.6"
    
     def turn(self,val,mustBeNeom=False):
         sys.path.append("./RealOnfexCompiler")
@@ -67,6 +67,7 @@ class main:
 
     def mt_sum(self,a):
         s = 0
+        a = self.turn(a,True)
         for i in a.veot:
             s += i
         return s
@@ -110,16 +111,13 @@ class main:
             return arg
             
     def mt_sort(self,obj):
-        from neomOnfex.cache.sorter import sort
+        from neomOnfex.sorter import sort
         obj = self.turn(obj,True)
         res = sort(obj.veot)
         return Neom(res)
         
     def fn_randArr(self,prop:list):
-        ty = prop[3].lower()
-        Len = prop[2]
-        Min = prop[0]
-        Max = prop[1]
+        Min,Max,Len,ty = prop[0],prop[1],prop[2],prop[3].lower()
         l = []
         for i in range(0,Len):
             if ty == "intg":
