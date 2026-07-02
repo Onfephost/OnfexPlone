@@ -294,9 +294,12 @@ class Parser:
         cur_cond = None
         cur_body = None
         else_body = None
-        if self.current() and self.current().type == "ELIF":
-            while self.current() and self.current().type == "ELIF":
-                tk = self.eat("ELIF");cur_cond = self.enter1();cur_body = self.block()
+        if self.current() and self.current().type == "ELSE" and self.peek() and self.peek().type == "IF":
+            while self.current() and self.current().type == "ELSE" and self.peek() and self.peek().type == "IF":
+                tk = self.eat("ELSE")
+                self.eat("IF")
+                cur_cond = self.enter1()
+                cur_body = self.block()
                 elif_bodies.append(Elif(tk,cur_cond,cur_body))
         if self.current() and self.current().type == "ELSE":
             self.eat("ELSE");else_body = self.block()
@@ -306,7 +309,6 @@ class Parser:
     # ---------------- expression ----------------
     def expr(self):
         left = self.chain(self.primary())
-        
         # assignment Variable, MemberAssign, DataAttr
         if self.current() and self.current().type == "EQUAL":
             if isinstance(left,(Variable, MemberAccess, DataAttr,IndexAccess,ModulVariable,LibVariable)):

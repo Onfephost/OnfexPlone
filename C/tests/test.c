@@ -1,16 +1,9 @@
 #include <stdio.h>
 #include <string.h>
-
+#include "test2.c"
 int main() {
-    int nots[4];
-    for (int i = 0; i < 4; i++) {
-        printf("Enter %d. note: ", i + 1);
-        scanf("%d", &nots[i]);
-    }
-    int sum = 0;
-    for (int i = 0; i < 4; i++) {
-        sum += nots[i];
-    }
-    printf("Average of notes: %d\n", sum/4);
+    char text[] = "Hello, World!";
+    spell(text);
+    printf("Division of 10 by 2: %d\n", div(10, 2));
     return 0;
 }
