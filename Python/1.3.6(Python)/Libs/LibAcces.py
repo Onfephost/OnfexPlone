@@ -1,4 +1,3 @@
-import sys
 from cache.Exceptions import *
 
 def loadLib(node,lib):
@@ -19,7 +18,7 @@ def loadLib(node,lib):
                 
             case "osp":            
                 import Libs.osp.osp as lib
-                return lib.main(node,True)
+                return lib.main(node,False)
             
             case "kachenter":            
                 import Libs.karchenter.karchenter as lib
