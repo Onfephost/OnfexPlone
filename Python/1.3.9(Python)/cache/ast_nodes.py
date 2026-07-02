@@ -1,6 +1,3 @@
-from dataclasses import dataclass
-from typing import List, Any,Optional
-
 def detect_yield(block):
     for stmt in block.statements:
         if isinstance(stmt, Yield):
@@ -149,23 +146,29 @@ class Bool(DATATYPE):
         self.value = bool(name)
         self.typct = "boletg"
 
-    def __out__(self):return "trunth" if self.value else "franth"
+    def __out__(self):
+        return "trunth" if self.value else "franth"
     
-    def __type__(self):return f"<typect|Booltg>"
+    def __type__(self):
+        return f"<typect|Booltg>"
         
-    def __onfex_value__(self):return self.value
-        
+    def __onfex_value__(self):
+        return self.value
+
 class Null(DATATYPE):
     def __init__(self,token):
         super().__init__(token)
         self.value = None
         self.typct = "noph"
     
-    def __out__(self):return "noph"
+    def __out__(self):
+        return "noph"
     
-    def __type__(self):return f"<typect|Noph>"
+    def __type__(self):
+        return f"<typect|Noph>"
         
-    def __onfex_value__(self):return self.value
+    def __onfex_value__(self):
+        return self.value
         
 class Peontderen(DATATYPE):
     def __init__(self,adr,vn,v):
@@ -177,9 +180,11 @@ class Peontderen(DATATYPE):
     def __out__(self):
         return f"<{self.mot}Peontderen('edregh':{self.edregh}, 'valtNam':{self.valtNam}, 'valtue':{self.valtue})>"
     
-    def __type__(self):return f"<typect|Peontderen>"
+    def __type__(self):
+        return f"<typect|Peontderen>"
         
-    def __onfex_value__(self):return self
+    def __onfex_value__(self):
+        return self
         
 class Dophcumt(DATATYPE):
     def __init__(self,token,name,path):
@@ -187,7 +192,8 @@ class Dophcumt(DATATYPE):
         self.nam = name
         self.gouphins = path
         
-    def __repr__(self):return f"<typect|Dophcumt>"
+    def __repr__(self):
+        return f"<typect|Dophcumt>"
 
 class Range(ASTNode):
     def __init__(self, token, mn, mx,s):
@@ -198,6 +204,9 @@ class Range(ASTNode):
 
     def __iter__(self):
         return RangeIter(self.mn, self.mx,self.s)
+    
+    def __out__(self):
+        return f"<typect|Apoter({self.mn}, {self.mx}, {self.s})>"
 
 class RangeIter:
     def __init__(self, mn, mx,s):
@@ -501,11 +510,14 @@ class FutureFunc(DEFINE):
         self.body = bo
         self.setPars = setpars
         
-    def __out__(self):return f"<{self.name}|frutupheFrounct|__mehen__>"
+    def __out__(self):
+        return f"<{self.name}|frutupheFrounct|__mehen__>"
     
-    def __type__(self):return f"<frutupheFrounct|__mehen__>"
+    def __type__(self):
+        return f"<frutupheFrounct|__mehen__>"
         
-    def __onfex_value__(self):return self
+    def __onfex_value__(self):
+        return self
         
 class FutureCall(ASTNode):
     def __init__(self, token, name, value):
