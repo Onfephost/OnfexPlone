@@ -1,1 +1,16 @@
-[?2004h[?1049h[22;0;0t[1;13r(B[m[4l[?7h[39;49m[?1h=[?1h=[?25l[?12l[?25h[39;49m(B[m[13;1H[?1049l[23;0;0t[?1l>[?2004l
+import os
+from bashCommands import run_command
+class Term:
+    def __init__(self, isProtected):
+        self.isProtected = isProtected
+    
+    def call(self, command):
+        if self.isProtected:
+            print(f"Executing command in protected mode: {command}")
+            run_command(command)
+        else:
+            print(f"Executing command: {command}")
+            os.system(command)
+            
+
+     

@@ -3,6 +3,7 @@ import os
 class main:
     def __init__(self,node,isProtected=False):
         self.node = node
+        self.isProtected = isProtected
         self.funcs = {
             "seophtess":self.fn_system,
             "removnos":self.fn_remove,
@@ -14,6 +15,10 @@ class main:
         }
         self.metodes = {}
         self.classes = {}
+        
+    def __renew__(self):
+        self.vars["dev_isProtected"] = self.isProtected
+        
     def getProt(self):
         return self.vars["dev_isProtected"]
         
@@ -26,10 +31,7 @@ class main:
             return os.system(inp)
             
     def fn_remove(self,inp):
-        if self.getProt() is False:
-            os.remove(inp)
-        else:
-            pass
+        os.remove(inp)
                 
 if __name__ == "__main__":                
     def send(a):

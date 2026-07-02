@@ -42,6 +42,15 @@ def sys_pwd():
     """
     os.system("pwd")
 
+def sys_remove(file_path):
+    """
+    Removes a file.
+
+    Args:
+        file_path (str): The path to the file to remove.
+    """
+    os.remove(file_path)
+
 def run_command(command):
     """
     Runs a command using the Term class.
@@ -54,6 +63,7 @@ def run_command(command):
         "muwenos":sys_cd,"cd":sys_cd,
         "grosserlrar":sys_ls,"ls":sys_ls,
         "grosser":sys_pwd,"pwd":sys_pwd,
+        "remuwenos":sys_remove,"rm":sys_remove
     }
     bash = extract_command(command)
     if len(bash) > 0:
