@@ -32,19 +32,21 @@ class qtrin:
 class main:
     def __init__(self,node):
         self.node = node
+        self.version = "0.0.1"
         self.funcs = {
             "natürnos":self.fn_nature,
             "keonNatürnos":self.fn_denature,
         }
         self.vars = {
-            "verzen":"0.0.1","description":"""""",
+            "verzen":self.version,
+            "description":"""""",
             "radoeRoderAfon":100000000000000,
         }
         self.metodes = {}
         self.classes = {"qtriner":qtrin}
     
     def __renew__(self):
-        self.vars["verzen"] = "0.0.1"
+        self.vars["verzen"] = self.version
         if not isinstance(self.vars["radoeRoderAfon"],int):
             self.vars["radoeRoderAfon"] = 100000000
         else:

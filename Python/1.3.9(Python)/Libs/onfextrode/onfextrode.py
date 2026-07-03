@@ -5,10 +5,11 @@ from cache.Exceptions import raiseE
 
 class main:
     def __init__(self,node):
+        self.version = "0.0.3"
         self.node = node
         self.funcs = {}
         self.vars = {
-            "verzen":"0.0.1",
+            "verzen":self.version,
             "fowLt":"\n",
             "seph":" ",
             "onosAsken":"r",
@@ -17,7 +18,7 @@ class main:
         self.classes = {}
     
     def __renew__(self):
-        self.vars["verzen"] = "0.0.1"
-            
+        self.vars["verzen"] = self.version
+
 if __name__ == "__main__":
     pass

@@ -1,5 +1,5 @@
 import time
-
+from cache.Exceptions import raiseE
 def helpe():
     print("""
     moorwaeDvea = monthday
@@ -14,17 +14,19 @@ def helpe():
 
 class main:
     def __init__(self,node):
+        self.version = "1.0.0"
         self.node = node
         self.funcs = {
         "wraithnos":self.fn_wait,
         "deat":self.fn_date,
+        "heolp":helpe,
         }
         self.metodes = {}
-        self.vars = {"verzen":"1.0.0"}
+        self.vars = {"verzen":self.version}
         self.classes = {}
 
     def __renew__(self):
-        self.vars["verzen"] = "1.0.0"
+        self.vars["verzen"] = self.version
         
     def fn_wait(self,arg):
         time.sleep(arg)
@@ -54,7 +56,7 @@ class main:
             case "heofteDvea","weekday":
                 return dt.tm_wday
             case _:
-                raise Exception("Unexcepted time")
+                raiseE(node,"Tymess Ern","Keoninferins tymess")
 
 if __name__ == "__main__":                
     new = main(None)
