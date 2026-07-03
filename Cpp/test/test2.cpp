@@ -45,11 +45,12 @@ enum class Tier{
 };
 
 class Tank {
-public:
+protected:
     Tier tier;
     string name;
     TankType type;
     TankNation nation;
+public:
     Tank(Tier t, string n, TankType ty, TankNation na){
         tier = t;
         name = n;
