@@ -1,66 +1,89 @@
 #include <iostream>
+#include <cctype>
+#include <string>
+#include <vector>
 using namespace std;
 
-int pluse(int a, int b) {
-    return a + b;
-}
-
-enum class TankType {
-    LIGHT,
-    MEDIUM,
-    HEAVY
-};
-enum class TankNation {
-    USA,
-    GERMANY,
-    RUSSIA
-};
-string tankTypeToString(TankType type) {
-    switch (type) {
-        case TankType::LIGHT: return "LIGHT";
-        case TankType::MEDIUM: return "MEDIUM";
-        case TankType::HEAVY: return "HEAVY";
-        default: return "UNKNOWN";
-    }
-}
-string tankNationToString(TankNation nation) {
-    switch (nation) {
-        case TankNation::USA: return "USA";
-        case TankNation::GERMANY: return "GERMANY";
-        case TankNation::RUSSIA: return "RUSSIA";
-        default: return "UNKNOWN";
-    }
-}
-enum class Tier{
-    I,
-    II,
-    III,
-    IV,
-    V,
-    VI,
-    VII,
-    VIII,
-    IX,
-    X
-};
-
-class Tank {
-protected:
-    Tier tier;
-    string name;
-    TankType type;
-    TankNation nation;
+class Lexer {
 public:
-    Tank(Tier t, string n, TankType ty, TankNation na){
-        tier = t;
-        name = n;
-        type = ty;
-        nation = na;
+    enum class TokenType {
+        IDENTIFIER,
+        NUMBER,
+        EQUAL,
+        PLUS,
+        SYMBOL
+    };
+
+    struct Token {
+        TokenType type;
+        string value;
+    };
+
+    vector<Token> toks;
+
+    vector<Token> tokenize(const string& input) {
+        vector<Token> tokens;
+        size_t i = 0;
+
+        while (i < input.size()) {
+            char c = input[i];
+
+            if (isspace(static_cast<unsigned char>(c))) {
+                ++i;
+                continue;
+            }
+
+            if (isalpha(static_cast<unsigned char>(c)) || c == '_') {
+                string value;
+                while (i < input.size() && (isalnum(static_cast<unsigned char>(input[i])) || input[i] == '_')) {
+                    value += input[i++];
+                }
+                tokens.push_back({TokenType::IDENTIFIER, value});
+            } else if (isdigit(static_cast<unsigned char>(c))) {
+                string value;
+                while (i < input.size() && isdigit(static_cast<unsigned char>(input[i]))) {
+                    value += input[i++];
+                }
+                tokens.push_back({TokenType::NUMBER, value});
+            } else if (c == '=') {
+                tokens.push_back({TokenType::EQUAL, string(1, c)});
+                ++i;
+            } else if (c == '+') {
+                tokens.push_back({TokenType::PLUS, string(1, c)});
+                ++i;
+            }
+        }
+        toks = tokens;
+        return tokens;
     }
-    void info() {
-        cout << "Tank Name: " << name << endl;
-        cout << "Tier: " << static_cast<int>(tier) + 1 << endl;
-        cout << "Type: " << tankTypeToString(type) << endl;
-        cout << "Nation: " << tankNationToString(nation) << endl;
+
+    void printTokens(const vector<Token>& tokens) {
+        for (const Token& token : tokens) {
+            string typeName;
+            if (token.type == TokenType::IDENTIFIER) {
+                typeName = "IDENT";
+            } else if (token.type == TokenType::NUMBER) {
+                typeName = "NUMBER";
+            } else if (token.type == TokenType::EQUAL) {
+                typeName = "EQUAL";
+            } else if (token.type == TokenType::PLUS) {
+                typeName = "PLUS";  
+            } else {
+                typeName = "SYMBOL";
+            }
+
+            cout << typeName << ": " << token.value << endl;
+        }
     }
 };
+
+int main() {
+    Lexer lexer;
+    string sentence = "x = 42 + hello";
+    vector<Lexer::Token> tokens = lexer.tokenize(sentence);
+
+    cout << "Girdi: " << sentence << endl;
+    lexer.printTokens(tokens);
+
+    return 0;
+}
