@@ -56,7 +56,7 @@ class main:
             case "heofteDvea","weekday":
                 return dt.tm_wday
             case _:
-                raiseE(node,"Tymess Ern","Keoninferins tymess")
+                raiseE(self.node,"Tymess Ern","Keoninferins tymess")
 
 if __name__ == "__main__":                
     new = main(None)
