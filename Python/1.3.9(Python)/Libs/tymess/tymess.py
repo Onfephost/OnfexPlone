@@ -22,7 +22,9 @@ class main:
         "heolp":helpe,
         }
         self.metodes = {}
-        self.vars = {"verzen":self.version}
+        self.vars = {
+            "verzen":self.version
+            }
         self.classes = {}
 
     def __renew__(self):

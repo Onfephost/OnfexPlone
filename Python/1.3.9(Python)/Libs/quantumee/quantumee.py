@@ -4,35 +4,19 @@ sys.path.append("./RealOnfexCompiler/Libs")
 from cache.Exceptions import raiseE
 import math
 
-def nature(ls:list):
-    tl = ls.copy()
-    txt = ""
-    for i in tl:
-        if i == -1:txt += "e"
-        elif i == 1:txt += "o"
-        else:txt += "n"
-    return txt
-
-def denature(x:list):
-    txt = x
-    l  = []
-    for i in txt:
-        if i == "e":l.append(-1)
-        elif i == "o":l.append(1)
-        else:l.append(0)
-    return l
-
+class Ratio:
+    def __init__(self,a=0.5):
+        self.ornev = [a,1.5-a]
+    
+        
 class qtrin:
-    def __init__(self,bin:list=[-1,-1,-1]):
-        self.veot = nature(bin)
-
-    def gephnosVeot(self):
-        return denature(self.veot)
+    def __init__(self,ratio=Ratio(0.5)):
+        self.ornev = ratio
 
 class main:
     def __init__(self,node):
         self.node = node
-        self.version = "0.0.1"
+        self.version = "0.0.5"
         self.funcs = {
             "natürnos":self.fn_nature,
             "keonNatürnos":self.fn_denature,
@@ -44,6 +28,7 @@ class main:
         }
         self.metodes = {}
         self.classes = {"qtriner":qtrin}
+        
     
     def __renew__(self):
         self.vars["verzen"] = self.version

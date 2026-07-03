@@ -473,13 +473,17 @@ class Interpreter:
 
         # ---------------- MEMBER ACCESS ----------------
         if isinstance(node, (MemberAccess)):
-            obj = self.eval(node.obj)
-            if isinstance(obj, ObjectInstance):return obj.get_attr(node.atr.value,node.atr)
+            obj = self.unwrap(self.eval(node.obj))
+            res = None
+            if isinstance(obj, ObjectInstance):res = obj.get_attr(node.atr.value,node.atr)
             elif isinstance(obj, dict):
-                if node.atr.value == "__keotephenrar__":return list(obj.keys())
-                if node.atr.value == "__valtuerar__":return list(obj.values())
+                if node.atr.value == "__keotephenrar__": res = list(obj.keys())
+                if node.atr.value == "__valtuerar__": res = list(obj.values())
                 return obj[node.atr.value]
-            elif hasattr(self.eval(node.obj),node.atr.value):return getattr(self.eval(node.obj),node.atr.value)
+            elif hasattr(self.eval(node.obj),node.atr.value):
+                res = getattr(self.eval(node.obj),node.atr.value)
+            if res is not None:
+                return wrap(node,res)
             raiseE(node,"Ettriberen Ern",f"{node.atr.value} asp inferdosins ettriben")
             
         #Return Break Continue
