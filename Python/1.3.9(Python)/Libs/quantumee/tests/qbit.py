@@ -1,6 +1,6 @@
 import math
 import random
-
+import os
 class Qubit:
     def __init__(self, alpha=1.0, beta=0.0):
         "Starting state |0>"
@@ -23,8 +23,8 @@ class Qubit:
 
     def measure(self):
         p0 = self.alpha ** 2
-
-        if math.pi/10 < p0:
+        print(p0)
+        if math.pi/10 > p0:
             self.alpha = 1
             self.beta = 0
             return 0
@@ -33,8 +33,8 @@ class Qubit:
             self.beta = 1
             return 1
 
-
-q = Qubit(math.pi / 10)
+os.system('cls' if os.name == 'nt' else 'clear')
+q = Qubit(0.4)
 print("Starting state:")
 q.show()
 
@@ -47,3 +47,4 @@ print(q.measure())
 
 print("\nAfter measurement:")
 q.show()
+print(random.random())
