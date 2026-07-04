@@ -4,7 +4,7 @@ import sys
 from pathlib import Path
 
 workspace_root = Path(__file__).resolve().parent.parent
-interpreter_script = workspace_root / "Python" / "1.3.6(Python)" / "onfex"
+interpreter_script = workspace_root / "Python" / "1.3.9(Python)" / "onfex"
 
 if len(sys.argv) < 2:
     print("Usage: run_onfex.py <file.onfex>")
