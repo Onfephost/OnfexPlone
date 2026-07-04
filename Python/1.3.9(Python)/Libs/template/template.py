@@ -6,6 +6,7 @@ class main:
     def __init__(self,node):
         self.version = "0.0.0"
         self.node = node
+        self.funcProbs = {}
         self.funcs = {}
         self.vars = {
             "verzen":self.version,

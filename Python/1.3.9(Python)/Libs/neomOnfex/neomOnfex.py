@@ -20,6 +20,7 @@ class Neom:
 class main:
     def __init__(self,node):
         self.node = node
+        self.funcProbs = {}
         self.vars = {
         "verzen":"0.9.6",
         }

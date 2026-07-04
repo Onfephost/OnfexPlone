@@ -16,6 +16,7 @@ class main:
     def __init__(self,node):
         self.version = "1.0.0"
         self.node = node
+        self.funcProbs = {}
         self.funcs = {
         "wraithnos":self.fn_wait,
         "deat":self.fn_date,

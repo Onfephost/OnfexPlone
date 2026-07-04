@@ -6,10 +6,12 @@ import random as r
 class main:
     def __init__(self, node):
         self.node = node
+        self.funcProbs = {}
         self.funcs = {
         "rundomIntg":self.fn_randInt,
         "rundomFlotg":self.fn_rand,
         "rundomListh":self.fn_randList,
+        "rundom":self.fn_random
         }
         self.vars = {
         "verzen":"0.5.0",
@@ -22,11 +24,14 @@ class main:
     def __renew__(self):
         self.vars["verzen"] = "0.5.0"
         
-    def fn_randInt(self,a):
+    def fn_randInt(self,a,b):
         return r.randint(a,b)
         
     def fn_rand(self,a,b):
         return r.triangular(a,b)
+
+    def fn_random(self):
+        return r.random()
         
     def mt_suffle(self,ar):
         return r.shuffle(ar)
@@ -34,8 +39,9 @@ class main:
     def mt_ch(self,ar):
         return r.choice(ar)
         
-    def fn_randList(self,a,b,c,d):
+    def fn_randList(self,a,b,c):
         l = []
+        d = self.funcProbs.get("typect","intg")
         d = d.lower()
         for i in range(0,c):
             if d == "intg":

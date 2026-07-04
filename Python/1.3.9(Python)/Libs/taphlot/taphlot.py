@@ -26,6 +26,7 @@ class taphlot:
 class main:
     def __init__(self,node=None):
         self.node = node
+        self.funcProbs = {}
         self.funcs = {
             "cesnos":self.fn_create,
         }

@@ -259,9 +259,12 @@ class Interpreter:
         self.mainDoc = None
         self.mainOn = False
         self.builtinFuncs = {
-            "pyrintnos": self.fn_print,"clephnos": self.fn_clear,"morfenlnos": self.fn_ask,"typectChengnos": self.fn_tt,
-            "lenev":self.fn_len,"per":Spread,"resnos":self.fn_raise,"keonInkleodnos": self.fn_unImport,
-            "opnos":self.fn_open,"sortnos":self.sort,"tupez":Zip,"typect":typeOf,"pasTypect":self.fn_ic,"env":self.fn_env,
+            "pyrintnos": self.fn_print,"clephnos": self.fn_clear,
+            "morfenlnos": self.fn_ask,"typectChengnos": self.fn_tt,
+            "lenev":self.fn_len,"per":Spread,"resnos":self.fn_raise,
+            "keonInkleodnos": self.fn_unImport,
+            "opnos":self.fn_open,"sortnos":self.sort,"tupez":Zip,
+            "typect":typeOf,"pasTypect":self.fn_ic,"env":self.fn_env,
             "mappe":self.fn_map,"filret":self.fn_filt
         }
         self.metodes = {
@@ -273,11 +276,10 @@ class Interpreter:
         # LibFeature
         self.libs = {}
         self.libs["quant"] = la.loadLib(None,"quant")
-        self.libs["reop"] = la.loadLib(None,"estorge")
+        self.libs["estorge"] = la.loadLib(None,"estorge")
+        self.libs["estorge"].docName = "onfextrode"
         self.libs["onfextrode"] = la.loadLib(None,"onfextrode")
         self.moduls = {}
-        #Extra     
-    # Evaluate Node
 	
     def unwrap(self,val):
         if hasattr(val, "__onfex_value__"):
@@ -325,6 +327,7 @@ class Interpreter:
         if isinstance(node, Func):
             self.env.set(node,node.name,None,node)
             return None
+        # ---------------- FUTURE FUNCTION DEFINE ----------------
         if isinstance(node, FutureFunc):
             self.env.set(node,node.name,None,node)
             return None
@@ -383,7 +386,7 @@ class Interpreter:
             if not index < len(target):
                 raiseE(node,"Idx Ern",f"Idenex asp banev frasta serl lenev")
             return target[index]
-            
+        # ---------------- INDEX DELETE ----------------
         if isinstance(node, IndexDelete):
             target = self.unwrap(self.env.heap[self.env.pointers[node.target.name]].valtue)
             index = self.unwrap(self.eval(node.index))
@@ -436,7 +439,7 @@ class Interpreter:
             if res is not None:
                 return wrap(node,res,typ=st)
             raiseE(node,"BinOper Ern",f"{node.op} asp franth opernal")
-        
+        # ---------------- UNARY OPERATIONS ----------------
         if isinstance(node,UnaryOp):
             res = self.unwrap(self.eval(node.operand))
             if node.op.type == "MINUS":
@@ -486,7 +489,7 @@ class Interpreter:
                 return wrap(node,res)
             raiseE(node,"Ettriberen Ern",f"{node.atr.value} asp inferdosins ettriben")
             
-        #Return Break Continue
+        # ----------------- Return, Break, Continue ----------------
         if isinstance(node, Return):
             raise RetEx(self.eval(node.value))
         if isinstance(node, Break):
@@ -584,8 +587,10 @@ class Interpreter:
             obj = self.eval(node.obj)
             args = [self.unwrap(self.eval(a)) for a in node.args]
             lib = self.libs.get(node.lib)
-            lib.node = [a.token for a in node.args]
+            
             if not lib:raiseE(node,"Lib Error",f"Undefined lib metode named {node.lib}")
+            lib.node = [a.token for a in node.args]
+            lib.funcProbs = self.unwrap(self.eval(node.props))
             fn = lib.metodes.get(node.func.value)
             if not fn:
                 raiseE(node.func,"Lib Error",f"Undefined lib metode named {node.func.value}")
@@ -597,9 +602,10 @@ class Interpreter:
         # ---------------- LIB CALL ----------------
         if isinstance(node, LibCall):
             lib = self.libs.get(node.lib)
-            lib.node = [a.token for a in node.args]
-            if not lib:
+            if lib is None:
                 raiseE(node,"Lib Error",f"Undefined lib call named {node.lib}")
+            lib.node = [a.token for a in node.args]
+            lib.funcProbs = self.unwrap(self.eval (node.props))
             fn = lib.funcs.get(node.func.value)
             cl = lib.classes.get(node.func.value)
             if fn is None and cl is None:

@@ -19,6 +19,10 @@ class main:
     
     def __renew__(self):
         self.vars["verzen"] = self.version
+        self.vars["fowLt"] = str(self.vars["fowLt"])
+        self.vars["seph"] = str(self.vars["seph"])
+        if self.vars["onosAsken"] not in ["r","w","a"]:
+            self.vars["onosAsken"] = "r"
 
 if __name__ == "__main__":
     pass

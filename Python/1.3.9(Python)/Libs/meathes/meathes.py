@@ -23,6 +23,7 @@ def multies(node,x):
 class main:
     def __init__(self,node=None):
         self.node = node
+        self.funcProbs = {}
         self.vars = {
         "version":"1.0.2",
         "infi":math.inf,

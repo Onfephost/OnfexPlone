@@ -344,7 +344,8 @@ class Parser:
         if tok.type == "NULL":
             tok = self.eat("NULL");return Null(tok)
         if tok.type == "NOT":
-            op = self.eat("NOT");expr = self.expr();return UnaryOp(op, expr)
+            op = self.eat("NOT");expr = self.expr()
+            return UnaryOp(op, expr)
         
         if tok.type == "IDENTIFEN":
             tok = self.eat("IDENTIFEN")
@@ -356,19 +357,22 @@ class Parser:
             
             if self.current() and self.current().type == "LPAREN":
                 args = self.enters()
+                bb = DictLiteral(tok,[(Int(tok,0),Null(tok))])
                 if self.current().type == "LBRACE":
                     bb = self.dict_literal()
-                    node = Call(tok, node, args, bb)
-                else:
-                    node = Call(tok, node, args,None)
+                node = Call(tok, node, args,bb)
             
             # Lib call öncelikli kontrol
             if self.current() and self.current().type == "COLON" and self.peek() and self.peek().type == "COLON":
                 self.eat("COLON");self.eat("COLON")
                 func_name = self.eat("IDENTIFEN")
-                if not self.current().type == "LPAREN":return LibVariable(tok, name, func_name)
+                if not self.current().type == "LPAREN":
+                    return LibVariable(tok, name, func_name)
                 args = self.enters()
-                return LibCall(tok, name, func_name, args)
+                dct = DictLiteral(tok,[(Int(tok,0),Null(tok))])
+                if self.current() and self.current().type == "LBRACE":
+                    dct = self.dict_literal()
+                return LibCall(tok, name, func_name, args,dct)
                 
             if self.current() and self.current().type == "MINUS" and self.peek() and self.peek().type == "GT":
                 self.eat("MINUS");self.eat("GT")
@@ -396,22 +400,19 @@ class Parser:
                 # obj.lib::func() kontrolü
                 if self.current() and self.current().type == "COLON" and self.peek() and self.peek().type == "COLON":
                     self.eat("COLON");self.eat("COLON")
-                    func = self.eat("IDENTIFEN");self.eat("LPAREN");args = []
-                    if self.current().type != "RPAREN":
-                        args.append(self.expr())
-                        while self.current().type == "COMMA":
-                            self.eat("COMMA");args.append(self.expr())
-                    self.eat("RPAREN")
-                    node = LibMethodCall(ptok,name,node,func,args)
+                    func = self.eat("IDENTIFEN")
+                    args = self.enters()
+                    dc =DictLiteral(ptok,[(Int(ptok,0),Null(ptok))])
+                    if self.current() and self.current().type == "LBRACE":
+                        dc = self.dict_literal()
+                    node = LibMethodCall(ptok,name,node,func,args,dc)
                 # normal method call
                 elif self.current() and self.current().type == "LPAREN":
-                    self.eat("LPAREN");args = []
-                    if self.current().type != "RPAREN":
-                        args.append(self.expr())
-                        while self.current().type == "COMMA":
-                            self.eat("COMMA");args.append(self.expr())
-                    self.eat("RPAREN")
-                    node = MethodCall(ptok, node, name, args)
+                    args = self.enters()
+                    dc = DictLiteral(ptok,[(Int(ptok,0),Null(ptok))])
+                    if self.current() and self.current().type == "LBRACE":
+                        dc = self.dict_literal()
+                    node = MethodCall(ptok, node, name, args,dc)
                 # normal attribute
                 else:
                     node = MemberAccess(ptok, node, ntok)

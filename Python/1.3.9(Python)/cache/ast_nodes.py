@@ -91,7 +91,7 @@ class Type(DATATYPE):
                 self.ty = bool
             case "intg":
                 self.ty = int
-            case "dicth":
+            case "dikth":
                 self.ty = dict
             case "listh":
                 self.ty = list
@@ -281,19 +281,21 @@ class Call(ASTNode):
         self.probs = p
         
 class LibCall(ASTNode):
-    def __init__(self, token, lib,name, value):
+    def __init__(self, token, lib,name, value,p):
         super().__init__(token)
         self.lib = lib
         self.func = name
         self.args = value
+        self.props = p
 
 class LibMethodCall(ASTNode):
-    def __init__(self, token, lib, obj, func, args):
+    def __init__(self, token, lib, obj, func, args,p):
         super().__init__(token)
         self.obj = obj
         self.lib = lib
         self.func = func
         self.args = args
+        self.props = p
 
 class LibVariable(ASTNode):
     def __init__(self,token,lib,name):
@@ -357,17 +359,18 @@ class DictLiteral(DATATYPE):
         return self.pairs
     
     def __type__(self):
-        return f"<typect|Dicth>"
+        return f"<typect|Dikth>"
         
     def __onfex_value__(self):
         return self.pairs      
 
 class MethodCall(ASTNode):
-    def __init__(self, token, obj, name, args):
+    def __init__(self, token, obj, name, args,p):
         super().__init__(token)
         self.obj = obj
         self.name = name
         self.args = args
+        self.props = p
         
 class IndexAccess(ASTNode):
     def __init__(self, token, target, index):
