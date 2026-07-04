@@ -1,5 +1,5 @@
 #include <iostream>
-#include "test2.cpp"
+#include "lexer.cpp"
 using namespace std;
 
 void spellOut(const string& text) {
@@ -9,10 +9,5 @@ void spellOut(const string& text) {
     cout << endl;
 }
 int main() {
-    Tank myTank(Tier::VII, "Tiger I", TankType::HEAVY, TankNation::GERMANY);
-    myTank.info();
-    cout << (5 + 10) << pluse(5, 10) << endl;
-    string text = "Hello, World!";
-    spellOut(text);
     return 0;
 }

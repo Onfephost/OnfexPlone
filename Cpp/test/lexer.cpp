@@ -77,13 +77,3 @@ public:
     }
 };
 
-int main() {
-    Lexer lexer;
-    string sentence = "x = 42 + hello";
-    vector<Lexer::Token> tokens = lexer.tokenize(sentence);
-
-    cout << "Girdi: " << sentence << endl;
-    lexer.printTokens(tokens);
-
-    return 0;
-}
