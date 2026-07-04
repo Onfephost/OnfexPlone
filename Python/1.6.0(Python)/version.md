@@ -1,7 +1,9 @@
 # Version 1.3.9
 This language bases on Excalish.
 > Onfephost | Creator of Onfex
+
 - [Syntax Writing](#Syntax_Writing)
+
 
 ## Syntax_Writing
 - Function Call
@@ -117,6 +119,16 @@ mehen{
   ```
     franth
   ```
+- Switch
+```onfex
+swetch(enter){
+  kazel(){}
+  kazel(){}
+  :
+  :
+  defeal{}
+}
+```
 ## Builtin Functions  
 Builtin functions are not **overwritable**.
 - Pyrintnos
