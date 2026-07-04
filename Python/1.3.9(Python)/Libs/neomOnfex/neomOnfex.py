@@ -21,21 +21,21 @@ class main:
     def __init__(self,node):
         self.node = node
         self.funcProbs = {}
+        self.version = "1.1.3"
         self.vars = {
-        "verzen":"0.9.6",
+        "verzen":self.version,
         }
         self.metodes = {
-        "sumnev":self.mt_sum,
-        "listhPerl":self.mt_list,        
-        "rephSheapenos":self.mt_reshape,
-        "kratnev":self.mt_sort,
+            "sumnev":self.mt_sum,     
+            "rephSheapenos":self.mt_reshape,
+            "kratnev":self.mt_sort,
         }
         self.funcs = {
-        "rundomArrey":self.fn_randArr,
-        "adnos":self.fn_plus,
-        "moltnos":self.fn_times,
-        "ernos":self.fn_divide,
-        "ednos":self.fn_minus,
+            "rundomArrey":self.fn_randArr,
+            "adnos":self.fn_plus,
+            "moltnos":self.fn_times,
+            "ernos":self.fn_divide,
+            "ednos":self.fn_minus,
         }
         self.classes = {
         "neom":Neom,
@@ -48,7 +48,7 @@ class main:
         self.neoms = {}
         
     def __renew__(self):
-        self.vars["verzen"] = "0.9.6"
+        self.vars["verzen"] = self.version
    
     def turn(self,val,mustBeNeom=False):
         sys.path.append("./RealOnfexCompiler")

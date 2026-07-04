@@ -6,23 +6,24 @@ import random as r
 class main:
     def __init__(self, node):
         self.node = node
+        self.version = "1.1.0"
         self.funcProbs = {}
         self.funcs = {
-        "rundomIntg":self.fn_randInt,
-        "rundomFlotg":self.fn_rand,
-        "rundomListh":self.fn_randList,
-        "rundom":self.fn_random
+            "rundomIntg":self.fn_randInt,
+            "rundomFlotg":self.fn_rand,
+            "rundomListh":self.fn_randList,
+            "rundom":self.fn_random
         }
         self.vars = {
-        "verzen":"0.5.0",
+            "verzen":self.version,
         }
         self.metodes = {
-        "mexnos":self.mt_suffle,
-        "rundObjektess":self.mt_ch,
+            "mexnos":self.mt_suffle,
+            "rundObjektess":self.mt_ch,
         }
         self.classes = {}
     def __renew__(self):
-        self.vars["verzen"] = "0.5.0"
+        self.vars["verzen"] = self.version
         
     def fn_randInt(self,a,b):
         return r.randint(a,b)

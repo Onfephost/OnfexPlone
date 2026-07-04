@@ -5,7 +5,7 @@ inkleodnos rundom asken rd;
 
 mehen{
     ls = rd::rundomListh(-20,20,5){"typect":"flotg"};
-    ls[0] = 100;
+    ls[0] = rd::rundom();
     pyrintnos(ls);
     module->test(-13);
 }
