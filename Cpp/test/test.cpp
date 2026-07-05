@@ -10,7 +10,9 @@ void spellOut(const string& text) {
     cout << endl;
 }
 int main() {
-    Lexer l("a = b");
-    l.tokenize();
+    string var = "a = b";
+    Lexer l;
+    l.tokenize(var);
+    cout << "done";
     return 0;
 }

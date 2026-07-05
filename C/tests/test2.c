@@ -24,3 +24,7 @@ void spell(char *text) {
         printf(" | %c", text[i]);
     }
 }
+struct AstNode
+{
+    int val;
+};
