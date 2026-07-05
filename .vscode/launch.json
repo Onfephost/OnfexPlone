@@ -1,19 +1,43 @@
 {
-  "version": "0.2.0",
-  "configurations": [
-
-    
-    {
-      "name": "Onfex: Run Current File",
-      "type": "python",
-      "request": "launch",
-      "program": "${workspaceFolder}/.vscode/run_onfex.py",
-      "args": [
-        "${file}"
-      ],
-      "cwd": "${fileDirname}",
-      "console": "integratedTerminal",
-      "justMyCode": false
-    }
-  ]
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Onfex: Run Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/.vscode/run_onfex.py",
+            "args": [
+                "${file}"
+            ],
+            "cwd": "${fileDirname}",
+            "console": "integratedTerminal",
+            "justMyCode": false
+        },
+        {
+            "name": "C/C++: g++-13 etkin dosyayı derle ve dosyada hata ayıkla",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${fileDirname}/${fileBasenameNoExtension}",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "gdb için düzgün yazdırmayı etkinleştir",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Ayrıştırılmış Kod Varyantını Intel olarak ayarla",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "C/C++: g++-13 etkin dosyayı derle",
+            "miDebuggerPath": "/usr/bin/gdb"
+        }
+    ]
 }
