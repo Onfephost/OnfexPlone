@@ -1,10 +1,20 @@
 using System;
-
-public class Hesap
+using System.Numerics;
+enum Token
+{
+    Ident,
+    Semi,
+    Equal,
+}
+public class Lexer
     {
-        public int Topla(int a, int b)
+        public Vector<Token> lex(string txt)
         {
-            return a + b;
+            for(int i = 0; i < txt.Length(); i++)
+        {
+            char ch = txt[i];
+            Console.WriteLine(ch);
+        }
         }
     }
 class Program
