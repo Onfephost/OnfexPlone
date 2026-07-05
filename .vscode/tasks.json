@@ -1,29 +1,29 @@
 {
   "version": "2.0.0",
   "tasks": [
+    
     {
-      "type": "cppbuild",
-      "label": "C/C++: gcc etkin dosyayı derle",
-      "command": "/usr/bin/g++",
+      "label": "Run Onfex File",
+      "type": "shell",
+      "command": "/home/codespace/.python/current/bin/python",
       "args": [
-        "-fdiagnostics-color=always",
-        "-g",
-        "${file}",
-        "-o",
-        "${fileDirname}/${fileBasenameNoExtension}"
+        "${workspaceFolder}/.vscode/run_onfex.py",
+        "${file}"
       ],
       "options": {
-        "cwd": "${fileDirname}"
+        "cwd": "${workspaceFolder}"
       },
-      "problemMatcher": [
-        "$gcc"
-      ],
       "group": {
-        "kind": "build",
-        "isDefault": true
+        "kind": "test",
+        "isDefault": false
       },
-      "detail": "Hata Ayıklayıcısı tarafından oluşturulan görev."
-    },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      },
+      "problemMatcher": []
+    }
+    ,
     {
       "label": "Run Onfex File",
       "type": "shell",
