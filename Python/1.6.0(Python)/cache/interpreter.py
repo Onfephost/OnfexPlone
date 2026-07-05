@@ -277,8 +277,10 @@ class Interpreter:
         self.libs = {}
         self.libs["quant"] = la.loadLib(None,"quant")
         self.libs["estorge"] = la.loadLib(None,"estorge")
-        self.libs["estorge"].docName = "onfextrode"
+        self.libs["estorge"].fn_setpath("mehen")
         self.libs["onfextrode"] = la.loadLib(None,"onfextrode")
+        import Libs.devtools.beta as lib
+        self.devTool = lib.main(None)
         self.moduls = {}
 	
     def unwrap(self,val):
@@ -798,6 +800,12 @@ class Interpreter:
     def fn_ask(self,node,arg):return wrap(node,input(arg))
     def fn_raise(self,node,arg1,arg2):raiseE(node,arg1,arg2)
     def fn_clear(self,node):os.system("clear")
+
+    def fn_openDev(self,node):
+        self.libs["devTool"] = self.devTool
+
+    def fn_sync(self,node):
+        self.devTool = self.libs.get("devTool",self.devTool)
     
     def fn_tt(self,node,data,ty):
         if not isinstance(ty,Type):

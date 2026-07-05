@@ -49,7 +49,7 @@ class main:
             f.write(str(dct))
 
     def fn_setpath(self,a):
-        self.path = f"./Python/1.3.9(Python)/Libs/estorge/{a}.json"
+        self.path = f"./Python/1.6.0(Python)/Libs/estorge/{a}.json"
         with open(self.path,"w") as f:
             f.write("{}")
             
