@@ -1,5 +1,6 @@
 from dataclasses import dataclass as d
 import sys
+import os
 sys.path.append("./RealOnfexCompiler")
 from cache.Exceptions import raiseE
 
@@ -8,7 +9,7 @@ class main:
         self.docName = "a"
         self.funcProbs = {}
         self.path = f"./Python/1.3.9(Python)/Libs/estorge/{self.docName}.json"
-        self.version = "0.5.1"
+        self.version = "1.3.6"
         self.node = node
         self.funcs = {
             "cesnos":self.fn_cre,
@@ -26,6 +27,8 @@ class main:
         self.vars["verzen"] = self.version
     
     def fn_cre(self,a,b):
+        if os.path.exist(self.path):
+            raiseE(self.node,"Estorge Ern","Gouphins asp neat afie")
         with open(self.path,"r") as f:
             self.dct = eval(f.read())
         self.dct[a] = b
@@ -33,6 +36,8 @@ class main:
             f.write(str(self.dct))
     
     def fn_get(self,a):
+        if os.path.exist(self.path):
+            raiseE(self.node,"Estorge Ern","Gouphins asp neat afie")
         with open(self.path,"r") as f:
             self.dct = eval(f.read())
         if a in self.dct:
@@ -41,6 +46,8 @@ class main:
             raiseE(self.node,"Estorge Ern",f"{a} asp estorge dikth neat froundnosan")
     
     def fn_del(self,a):
+        if os.path.exist(self.path):
+            raiseE(self.node,"Estorge Ern","Gouphins asp neat afie")
         with open(self.path,"r") as f:
             dct = eval(f.read())
         if a in dct:
