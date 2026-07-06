@@ -8,8 +8,8 @@ class main:
     def __init__(self,node):
         self.docName = "a"
         self.funcProbs = {}
-        self.path = f"./Python/1.3.9(Python)/Libs/estorge/{self.docName}.json"
-        self.version = "1.3.6"
+        self.path = f"./Python/1.6.0(Python)/Libs/estorge/{self.docName}.json"
+        self.version = "1.4.6"
         self.node = node
         self.funcs = {
             "cesnos":self.fn_cre,
