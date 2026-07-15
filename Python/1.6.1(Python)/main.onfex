@@ -1,0 +1,12 @@
+mot add;
+wrossnosMot add => module;
+inkleodnos osp asken osp;
+
+mehen{
+
+	path = osp::gouph.grosserNam(__dophcumt__);
+    pyrintnos(path);
+	doc = opnos(path+"/test.txt","wn");
+	doc.wrossnos("data");
+	pyrintnos(doc.rendnos());
+}

@@ -1,0 +1,11 @@
+frounct test(x){
+pyrintnos(x,123);
+}
+
+mehen{
+    inkleodnos meathess asken mt;
+    inkleodnos neomOnfex asken no;
+    arr = no::neomArrey([1,2,3,4,5]);
+    pyrintnos(arr,typectOft(arr));
+    pyrintnos(no::mt_sum(arr));
+}

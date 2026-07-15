@@ -12,6 +12,7 @@ def merge_env(envA, envB):
 class Environment:
     def __init__(self, parent=None):
         self.ptrC = 1
+        self.HEAP = []
         self.pointers = {}
         self.heap = {}
         self.parent = parent
@@ -39,9 +40,9 @@ class Environment:
 
         elif self.parent and self.parent.save_get(node,name) is not None:
             self.parent.set(node,name,typ,value)
-
         else:
-            adr = self.ptrC
+            self.HEAP.append(value)
+            adr = id(self.HEAP[-1])
             self.pointers[name] = adr
             self.heap[adr] = Peontderen(adr,name,value)
             self.ptrC += 1
@@ -54,4 +55,3 @@ class Environment:
         
     def __onfex_value__(self):
         return self
-                

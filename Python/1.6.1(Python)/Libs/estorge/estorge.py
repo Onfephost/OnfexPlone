@@ -1,6 +1,7 @@
 from dataclasses import dataclass as d
 import sys
 import os
+import json
 sys.path.append("./RealOnfexCompiler")
 from cache.Exceptions import raiseE
 
@@ -8,8 +9,7 @@ class main:
     def __init__(self,node):
         self.docName = "a"
         self.funcProbs = {}
-        self.dir = os.path.dirname(os.path.abspath(__file__))
-        self.path = f"{self.dir}/{self.docName}.json"
+        self.path = f"{os.path.dirname(os.path.abspath(__file__))}/storages/{self.docName}.json"
         self.version = "1.4.6"
         self.node = node
         self.funcs = {
@@ -31,7 +31,7 @@ class main:
         if os.path.exist(self.path):
             raiseE(self.node,"Estorge Ern","Gouphins asp neat afie")
         with open(self.path,"r") as f:
-            self.dct = eval(f.read())
+            self.dct = json.load(f)
         self.dct[a] = b
         with open(self.path,"w") as f:
             f.write(str(self.dct))
@@ -40,7 +40,7 @@ class main:
         if os.path.exist(self.path):
             raiseE(self.node,"Estorge Ern","Gouphins asp neat afie")
         with open(self.path,"r") as f:
-            self.dct = eval(f.read())
+            self.dct = json.load(f)
         if a in self.dct:
             return self.dct[a]
         else:
@@ -50,16 +50,17 @@ class main:
         if os.path.exist(self.path):
             raiseE(self.node,"Estorge Ern","Gouphins asp neat afie")
         with open(self.path,"r") as f:
-            dct = eval(f.read())
+            dct = json.load(f)
         if a in dct:
             del dct[a]
         with open(self.path,"w") as f:
             f.write(str(dct))
 
     def fn_setpath(self,a):
-        self.path = f"{self.dir}/{a}.json"
-        with open(self.path,"w") as f:
-            f.write("{}")
+        self.path = f"{os.path.dirname(os.path.abspath(__file__))}/storages/{a}.json"
+        if not os.path.exists(self.path):
+            with open(self.path,"w") as f:
+                json.dump({},f,indent=4)
             
 if __name__ == "__main__":
     pass

@@ -7,7 +7,8 @@ class main:
     def __init__(self,node):
         self.docName = "a"
         self.funcProbs = {}
-        self.path = f"./Python/1.3.9(Python)/Libs/estorge/{self.docName}.json"
+        self.dir = os.path.dirname(os.path.abspath(__file__))
+        self.path = f"{self.dir}/{self.docName}.json"
         self.version = "0.5.1"
         self.node = node
         self.funcs = {
@@ -49,7 +50,7 @@ class main:
             f.write(str(dct))
 
     def fn_setpath(self,a):
-        self.path = f"./Python/1.3.9(Python)/Libs/estorge/{a}.json"
+        self.path = f"{self.dir}/{a}.json"
         with open(self.path,"w") as f:
             f.write("{}")
             
