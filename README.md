@@ -14,4 +14,7 @@ This programing language provides:
 - 1.0.5
 - 1.3.6
 - 1.3.9
-
+- 1.6.0
+- 1.6.1
+- 1.6.2
+  
