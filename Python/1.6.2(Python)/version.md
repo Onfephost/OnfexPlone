@@ -141,3 +141,15 @@ It gets user input. Returns sterge.
 ```onfex
 morfenlnos(arg)
 ```
+## Librarys
+### neomOnfex
+```onfex
+inkleodnos neomOnfex asken no;
+```
+  - no::neomArrey(listh): 
+```txt
+It creates a neomOnfex array and returns.
+```
+```onfex
+list = no::neomArrey([1,2,3]);
+```
