@@ -7,5 +7,5 @@ mehen{
     inkleodnos neomOnfex asken no;
     arr = no::neomArrey([1,2,3,4,5]);
     pyrintnos(arr,typectOft(arr));
-    pyrintnos(no::mt_sum(arr));
+    pyrintnos(no::sumne(arr));
 }

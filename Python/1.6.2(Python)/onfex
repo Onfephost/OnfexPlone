@@ -1,0 +1,48 @@
+#!/usr/bin/env python3
+
+import sys
+import subprocess
+import os
+from cache.Exceptions import *
+from cache.lexer import lex
+from cache.parser import Parser
+from cache.interpreter import Interpreter
+from cache.document import OnfexPloneDoph as OPD
+
+def resolve_path(file):
+    # önce direkt var mı?
+    if os.path.exists(file):
+        return os.path.abspath(file)
+
+    # yoksa workspace içinde ara
+    for root in ["/public","sdcard","/public/onfex_aertnen"]:
+        for path, dirs, files in os.walk(root):
+            if file in files:
+                return os.path.join(path, file)
+
+    return None
+def run_file(file_path):
+    if not os.path.exists(file_path):
+        print("No Document Directory:", file_path)
+        return
+
+    ext = file_path.split(".")[-1]
+
+    if ext == "onfex":
+        print("Onfex çalıştırılıyor:", file_path)
+        # Interpreter çağırabilirsin
+        full_path = resolve_path(file_path)
+        doc = OPD(full_path.replace("/"+file_path,""),file_path,None,False)
+        doc.run()
+    else:
+        print("Error: \nDocument must be .onfex")
+
+def main():
+    if len(sys.argv) < 2:
+        print("Using: onfexp <dosya>")
+        return
+
+    run_file(sys.argv[1])
+
+if __name__ == "__main__":
+    main()

@@ -52,7 +52,7 @@ class OnfexPloneDoph:
             print(proc.stderr, end="", file=sys.stderr)
         return proc.returncode
 
-    def run(self,nm=None):
+    def run(self,p="",nm=None):
         self.main = nm
         try:
             self._run_cpp_bridge()
@@ -62,13 +62,11 @@ class OnfexPloneDoph:
 
                 if self.ii == False:
                     tokens = lex(self.code)
-                    print("Onfex asp komplernosyer...")
                     tree = Parser(tokens).parse()
                     intr = intp.Interpreter(self)
-                    os.system("clear")
                     intr.path = self.path
                     intr.mainOn = True
-                    print("[Onfex Run]")
+                    print(f"{p}[Onfex Run]")
                     intr.eval(tree)
                 else:
                     tokens = lex(self.code)
@@ -82,12 +80,10 @@ class OnfexPloneDoph:
             except OnfexError as e:
                 show_error(self.code, e)
 
-
 def create_and_run(docpath, name, code=None, isImport=False):
     obj = OnfexPloneDoph(docpath, name, code, isImport)
     obj.run()
     return obj
-
 
 if __name__ == "__main__":
     create_and_run(sys.argv[1] if len(sys.argv) > 1 else ".", sys.argv[2] if len(sys.argv) > 2 else "main.onfex")

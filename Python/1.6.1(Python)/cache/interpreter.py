@@ -270,9 +270,9 @@ class Interpreter:
             "lenev":self.fn_len,"per":Spread,"resnos":self.fn_raise,
             "keonInkleodnos": self.fn_unImport,
             "opnos":self.fn_open,"sortnos":self.sort,"tupez":Zip,
-            "typect":typeOf,"pasTypect":self.fn_ic,"env":self.fn_env,
+            "typectOft":typeOf,"pasTypect":self.fn_ic,"env":self.fn_env,
             "mappe":self.fn_map,"filret":self.fn_filt,"openDevTools":self.fn_openDev,
-            "sycnDevTools":self.fn_sync,
+            "sycnDevTools":self.fn_sync,"OnfexPloneDophcumt":self.OPDC
         }
         self.metodes = {
             "adepnos":self.mt_append,
@@ -470,6 +470,7 @@ class Interpreter:
             if isinstance(node.obj,ObjectInstance):obj = node.obj
             else:obj = (node.obj)
             args = [self.unwrap(self.eval(a)) for a in node.args]
+            
             if node.name in self.metodes:
                 pc = self.getParams(self.metodes[node.name])
                 if len(pc) == len(args)+2:
@@ -498,6 +499,13 @@ class Interpreter:
                     return wrap(node,res)
                 else:
                     raiseE(node,"Lrib Ettriben Ern",f"Keoninferins methodfal {node.name} oft {obj.lib}::{obj.name.value}")
+            obj =self.eval(obj)
+        
+            if isinstance(obj,OPD):
+                if hasattr(obj,node.name):
+                    return getattr(obj,node.name)(*args)
+                else:
+                    raiseE(node, "Meoteds Ern", f"Undefined method of OPD '{node.name}'")
             raiseE(node, "Meoteds Ern", f"Undefined method {node.name}")
             
 
@@ -658,7 +666,14 @@ class Interpreter:
             # builtin
             if node.node.name in self.builtinFuncs:
                 args = [self.eval(a) for a in node.args]
-                return wrap(node,self.builtinFuncs[node.node.name](node,*args))
+                parC = self.getParams(self.builtinFuncs[node.node.name])
+                try:
+                    return wrap(node,self.builtinFuncs[node.node.name](node,*args))
+                except TypeError:
+                    if len(args) != len(parC)-1 and not node.node.name in ["pyrintnos"]:
+                        raiseE(node.node, "Promter Ern",
+                        f"{node.node.name} asp {len(parC)-1} afon promter gephvegnosfer apht {len(args)} afon gephvegnosan")
+                
             args = [self.unwrap(self.eval(a)) for a in node.args]
             if node.node.name in self.builtinClasses:
                 cls = self.builtinClasses[node.node.name]
@@ -929,6 +944,13 @@ class Interpreter:
                 if liste[j] > liste[j + 1]:
                     liste[j], liste[j + 1] = liste[j + 1], liste[j]
         return wrap(node,liste)
+        
+    def OPDC(self,node,docpath,name,code,isImport:bool):
+        docpath = self.unwrap(docpath)
+        name = self.unwrap(name)
+        code = self.unwrap(code)
+        isImport = self.unwrap(isImport)
+        return OPD(docpath,name,code,isImport)
             
     def mt_write(self,node,obj,arg2):
         arg = self.eval(obj)

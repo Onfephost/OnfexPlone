@@ -3,10 +3,11 @@ wrossnosMot add => module;
 inkleodnos osp asken osp;
 
 mehen{
-
 	path = osp::gouph.grosserNam(__dophcumt__);
-    pyrintnos(path);
-	doc = opnos(path+"/test.txt","wn");
-	doc.wrossnos("data");
+    pyrintnos(path,123);
+	doc = opnos(path+"/test.onfex","wn");
+	doc.wrossnos(`pyrintnos(123,typectOft(noph));`);
+	onfexDoc = OnfexPloneDophcumt(path,"test.onfex",noph,franth);
 	pyrintnos(doc.rendnos());
+	onfexDoc.run("{mr}");
 }

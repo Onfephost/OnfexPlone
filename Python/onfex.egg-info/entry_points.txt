@@ -1,0 +1,2 @@
+[console_scripts]
+onfex = onfex_run:main

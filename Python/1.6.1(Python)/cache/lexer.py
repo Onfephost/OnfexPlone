@@ -29,7 +29,7 @@ KEYWORDS = {
 
 unary = {"brof":"AND","neat":"NOT","ophe":"OR","asp":"IS","mot":"MOD","intf":"IN"}
 TOKEN_SPEC = [
-    ("NUMBER",   r"-?\d+\.\d+|-?\d+"),("STRING",   r'"[^"]*"'),
+    ("NUMBER",   r"-?\d+\.\d+|-?\d+"),("STRING",   r'"[^"]*"'),("STRINGR",   r'`[^`]*`'),
     ("CHAR",     r"'[^']*'"),("BOOL",     r"(trunth|franth)"),("NULL",     r"(noph)"),
     ("EQEQ",     r"=="),("EQUAL",    r"="),
 
@@ -87,5 +87,6 @@ def lex(code: str):
         if kind == "IDENTIFEN" and value in TYPES:kind = "TYPE"
         if kind == "IDENTIFEN" and value in KEYWORDS:kind = KEYWORDS[value]
         if kind == "IDENTIFEN" and value in unary:kind = unary[value]
+        if kind == "STRINGR" : kind = "STRING"
         tokens.append(Token(kind, value, line, col - len(value), (start_pos, end_pos)))
     return tokens
