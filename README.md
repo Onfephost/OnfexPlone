@@ -8,7 +8,7 @@ This programing language provides:
 
 ```I develop this language myself. So I can mistakes and I uptade late.```
 
-## Versionns
+## Versions
 ```I have deleted some logs so this logs run with no error.```
 - 1.0.0
 - 1.0.5
@@ -17,4 +17,4 @@ This programing language provides:
 - 1.6.0
 - 1.6.1
 - 1.6.2
-  
+- 2.0.0
