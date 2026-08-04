@@ -1,0 +1,20 @@
+urso neomOnfex;
+urso osp;
+
+mot "../add.onfex";
+wrossnosMot "e" = "add";
+
+strouct Test{
+ prube x:intg
+}impelnos{
+ frounct new(a:intg) -> Srel{
+ }
+}
+
+frounct test(a:intg) -> intg{
+erutnos a;
+}
+
+mehen{
+pyrintnosFowLt!("{}",(8));
+}

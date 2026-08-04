@@ -1,0 +1,12 @@
+urso triner;
+
+strouct Test{
+ prube x:intg
+}
+
+mehen{
+
+valt a = triner->trinCernos(1);
+pyrintnos!("{}",a);
+
+}
