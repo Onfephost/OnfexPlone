@@ -1,0 +1,8 @@
+urso rust::taphlot;
+urso rust::Decmal;
+wrossnosLrib "tp" = "taphlot";
+
+mehen{
+  valt x = Vektöre.serl_vekt([1.0,23.0]);
+  pyrintnosFowLt!("{}",x);
+}

@@ -1,3 +1,0 @@
-strouct Vec<T>{
-list: T,
-}

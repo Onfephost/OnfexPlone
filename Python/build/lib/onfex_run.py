@@ -17,8 +17,8 @@ def resolve_path(file):
     return None
 
 def main():
-    version = "1.6.2"
-    sys.path.append(f"/storage/emulated/0/OnfexPlone/Python/{version}(Python)/")
+    version = "2.0.0"
+    sys.path.append(f"/storage/emulated/0/OnfexPlone-Heap/Python/{version}(Python)/")
     from cache.document import OnfexPloneDoph as OPD
     parser = argparse.ArgumentParser(
         prog="onfex",

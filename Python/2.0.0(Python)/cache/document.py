@@ -61,7 +61,7 @@ class OnfexPloneDophCache:
 #OPD
 class OnfexPloneDoph:
     def __init__(self,docpath,name,code,isImport:bool):
-        self.version = "1.6.2"
+        self.version = "2.0.0"
         self.name = name
         self.path = docpath
         self.main = None

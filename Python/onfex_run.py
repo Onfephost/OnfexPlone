@@ -10,15 +10,15 @@ def resolve_path(file):
         return os.path.abspath(file)
 
     # yoksa workspace içinde ara
-    for root in ["/public","sdcard","/public/onfex_aertnen"]:
+    for root in ["/public","/sdcard","/public/onfex_aertnen"]:
         for path, dirs, files in os.walk(root):
             if file in files:
                 return os.path.join(path, file)
     return None
 
 def main():
-    version = "1.6.2"
-    sys.path.append(f"/storage/emulated/0/OnfexPlone/Python/{version}(Python)/")
+    version = "2.0.0"
+    sys.path.append(f"/storage/emulated/0/OnfexPlone-Heap/Python/{version}(Python)/")
     from cache.document import OnfexPloneDoph as OPD
     parser = argparse.ArgumentParser(
         prog="onfex",
