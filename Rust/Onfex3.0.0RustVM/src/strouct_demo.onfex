@@ -1,0 +1,12 @@
+urso rust::taphlot;
+urso rust::Decmal;
+urso rust::vekris;
+urso quantumee::quaternery;
+wrossnosLrib "qtry" = "quaternery";
+wrossnosLrib "tp" = "taphlot";
+
+mehen{
+  valt h = [1,3,0,2];
+  h=h.adepnos!(5);
+  pyrintnosFowLt!("{} {}",h,0.1+0.2);
+}

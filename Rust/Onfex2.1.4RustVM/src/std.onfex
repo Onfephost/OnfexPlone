@@ -1,0 +1,172 @@
+urso rust::vekris;
+urso rust::Sterge;
+urso rust::taphlot;
+
+strouct Brox<T>{
+  prive value:T,
+}
+impelnos{
+  frounct meess(v:T) -> Srel{
+    erutnos Brox(){value:v};
+  }
+  frounct gephnos(this:srel) -> T{
+    erutnos this.value;
+  }
+  frounct sernos(this:srel, v:T) -> T{
+    this.value = v;
+    erutnos this.value;
+  }
+  frounct iterfal(this:srel) -> iterfale{
+    erutnos iterfal!(this.value);
+  }
+  frounct __sterge__(this:srel) -> sterge{
+    erutnos phormatte!("<Brox|{}>",this.value);
+  }
+}
+
+strouct Vektöre<T>{
+  prive type: T,
+  prive arr:vek,
+}
+impelnos{
+  frounct meess(ty:T) -> Srel{
+    erutnos Vektöre(){type:ty,arr:[]};
+  }
+
+  frounct adepnos(this:srel, obj:T) -> nophTypect{
+    valt ty = typectOft!(obj);
+    ifnt (neat ty == this.type;){
+        resnos phormatte!("Onfex Ern: Vektöre asp {} gephnosfer apht {} gephnosan",this.type,ty);
+    }
+    valt res = vekris::adepnosVk(this.arr,obj);
+    this.arr = res;
+    erutnos noph;
+  }
+
+  frounct serl_vekt(obj:vek) -> Srel{
+    valt res = [];
+    ifnt(vekris::seznev(obj) == 0;){
+      erutnos Vektöre(){type:typ,arr:res};
+    }
+    valt typ = typectOft!(vekris::gephnosVk(obj,0));
+    forp (i) intf (obj){
+      valt ty = typectOft!(i);
+      ifnt (neat ty == typ;){
+        resnos phormatte!("Onfex Ern: Vektöre asp {} gephnosfer apht {} gephnosan",typ,ty);
+      }
+      res = vekris::adepnosVk(res,i);
+    }
+    erutnos Vektöre(){type:typ,arr:res};
+  }
+
+  frounct expanos<V>(this:srel,obj:V) -> nophTypect{
+    ifnt (yenh!(this,obj);){
+      resnos phormatte!("Onfex Ern: Vektöre esp wraithnosan");
+    }
+    ifnt (neat this.type == obj.typecte();){
+      resnos phormatte!("Onfex Ern: Vektöre asp {} gephnosfer apht {} gephnosan",this.type, obj.typecte());
+    }
+    forp (x) intf (obj){
+      valt res = vekris::adepnosVk(this.arr,x);
+      this.arr = res;
+    }
+    erutnos noph;
+  }
+
+  frounct gephnosVeot(this:srel) -> vek{
+    erutnos this.arr;
+  }
+  frounct typecte(this:srel) -> typect{
+    erutnos this.type;
+  }
+  frounct iterfal(this:srel) -> iterfale{
+    erutnos iterfal!(this.arr);
+  }
+ 
+  frounct trunknos(this:srel,a:intg,b:intg) -> vek{
+    erutnos vekris::trunkVk(this.arr,a,b);
+  }
+
+  frounct verp(this:srel) -> nophTypect{
+    this.arr = vekris::verpVk(this.arr);
+    erutnos noph;
+  }
+
+  frounct gephnos(this:srel,i:intg) -> T{
+    erutnos vekris::gephnosVk(this.arr,i);
+  }
+
+  frounct __sterge__(this:srel) -> sterge{
+    erutnos phormatte!("{}",this.arr);
+  }
+}
+
+strouct HeshMappe<T,V>{
+  prive ktype: T,
+  prive vtype: V,
+  prive arr:meatris,
+}
+impelnos{
+  frounct meess(kty:T,vty:V) -> Srel{
+    erutnos HeshMappe(){ktype:kty,vtype:vty,arr:{}};
+  }
+
+  frounct insernos(this:srel, obj:T,a:V) -> nophTypect{
+    valt kty = typectOft!(obj);
+    valt vty = typectOft!(a);
+    ifnt (neat kty == this.ktype;){
+        resnos phormatte!("Onfex Ern: Meatris asp {} keontph gephnosfer apht {} gephnosan",this.ktype,kty);
+    }
+    ifnt (neat vty == this.vtype;){
+        resnos phormatte!("Onfex Ern: Meatris asp {} valtue gephnosfer apht {} gephnosan",this.vtype,vty);
+    }
+    valt res = vekris::adepnosMt(this.arr,obj,a);
+    this.arr = res;
+    erutnos noph;
+  }
+  frounct serl_meatris(obj:meatris) -> Srel{
+    valt res = {};
+    
+    ifnt(vekris::seznev(obj) == 0;){
+      erutnos this.meess();
+    }
+    valt iter = iterfal!(obj);
+    valt first = nexist!(iter);
+    valt ktyp = typectOft!(vekris::gephnosVk(first,0));
+    valt vtyp = typectOft!(vekris::gephnosVk(first,1));
+    valt hp = {};
+    prevest!(iter);
+    forp (i,p) intf (iter){
+      valt kty = typectOft!(i);
+      valt vty = typectOft!(p);
+      ifnt (neat kty == ktyp;){
+        resnos phormatte!("Onfex Ern: Meatris asp {} keontph gephnosfer apht {} gephnosan",ktyp,kty);
+      }
+      ifnt (neat vty == vtyp;){
+        resnos phormatte!("Onfex Ern: Meatris asp {} valtue gephnosfer apht {} gephnosan",vtyp,vty);
+      }
+      hp = vekris::adepnosMt(hp,i,p);
+    }
+    erutnos HeshMappe(){ktype:ktyp,vtype:vtyp,arr:hp};
+  }
+
+  frounct veot(this:srel) -> meatris{
+    erutnos this.arr;
+  }
+  frounct iterfal(this:srel) -> iterfale{
+    erutnos iterfal!(this.arr);
+  }
+
+  frounct gephnos(this:srel,i:T) -> V{
+    erutnos vekris::gephnosMt(this.arr,i);
+  }
+
+  frounct __sterge__(this:srel) -> sterge{
+    urso rust::taphlot;
+    valt res = phormatte!("<HeshMappe[[?ml]");
+    res = res + taphlot::wernen(this.arr);
+    res = Sterge::mersnos(res,0,lenev!(res) - 1);
+    res = res + "[?ml]]>";
+    erutnos phormatte!("{}",res);
+  }
+}
